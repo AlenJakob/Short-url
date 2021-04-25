@@ -1,27 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <SearchBar />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import SearchBar from "./components/SearchBar.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    HelloWorld,
+    SearchBar,
   },
 });
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
   text-align: center;
-  color: #2c3e50;
+  color: hsl(257, 27%, 26%);
   margin-top: 60px;
+  max-width: 1440px;
 }
 </style>

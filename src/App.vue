@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Statistics />
-    <h1>Hello</h1>
   </div>
 </template>
 
@@ -24,8 +23,7 @@ export default Vue.extend({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background: #ecedf4;
   font-family: "Poppins", sans-serif;
 }
 </style>

@@ -3,25 +3,39 @@
     <header class="header">
       <h3 class="title">Advanced Statistics</h3>
       <p class="paragraph">
-        Track how your links are performing across the web with our advanced statistics dashboard.
+        Track how your links are performing across the web with our advanced
+        statistics dashboard.
       </p>
     </header>
+    <StatisticsCards />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import StatisticsCards from "./StatisticsCards.vue";
 export default Vue.extend({
   name: "Statictics",
+  components: {
+    StatisticsCards: StatisticsCards,
+  },
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  max-width: 1000px;
+}
+
+.header {
+  margin-bottom: 100px;
 }
 
 .title {

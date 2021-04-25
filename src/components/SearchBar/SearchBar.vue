@@ -5,16 +5,12 @@
       <div class="search-bar">
         <div class="bar">
           <form class="search">
-            <input
-              class="input"
-              type="text"
-              placeholder="Shorten a link here..."
-            />
+            <input class="input" type="text" placeholder="Shorten a link here..." />
             <button class="btn btn-action">Shorten it!</button>
           </form>
-          <label class="txt-warning" for="search"
-            ><i>Please add a link</i></label
-          >
+          <label class="txt-warning" for="search">
+            <i>Please add a link</i>
+          </label>
         </div>
       </div>
       <div class="links">
@@ -22,7 +18,11 @@
           <div class="regular">{{ link.regular }}</div>
           <div class="action">
             <div class="shorter">{{ link.shorter }}</div>
-            <button class="btn btn-copy">Copy</button>
+            <button
+              @click="link.btnStatus = !link.btnStatus"
+              class="btn btn-copy"
+              :class="link.btnStatus ? 'isActive' : ''"
+            >{{link.btnStatus ? 'Copied' : 'Copy'}}</button>
           </div>
         </div>
       </div>
@@ -33,14 +33,24 @@
 <script>
 export default {
 data(){
-  return {
-    links:[{regular:"regular link",shorter:"shorter link"},{regular:"regular link",shorter:"shorter link"},{regular:"regular link",shorter:"shorter link"}]
+  return { 
+    links:[
+      {regular:"regular link",shorter:"shorter link",statusBtn:false},
+      {regular:"regular link",shorter:"shorter link",statusBtn:false},
+      {regular:"regular link",shorter:"shorter link",statusBtn:false}]
   }
+},
+methods:{
+
 }
+
 }
 </script>
 
 <style lang="scss">
+.isActive {
+  background: hsl(257, 27%, 26%) !important;
+}
 .main-bar {
   width: 768px;
 }
@@ -61,7 +71,7 @@ data(){
   border-radius: 8px;
   padding: 1.5em 2em;
   position: relative;
-  background: url("../assets/images/bg-shorten-desktop.svg") no-repeat center;
+  background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
   background-size: cover;
   color: hsl(257, 27%, 26%);
   & ::before {
@@ -85,15 +95,16 @@ data(){
       margin-top: 12.5px;
       display: flex;
       & .input {
+        color: hsl(255, 11%, 22%);
+        font-size: 18px;
+        text-indent: 20px;
         padding: 15px 0;
         flex-grow: 5;
         border: 2px solid transparent;
-        & ::active {
+        &:hover {
           border: 2px solid #de6979;
         }
         &::placeholder {
-          margin-left: 15px;
-          font-size: 18px;
           color: hsla(0, 87%, 67%, 0.384);
         }
       }

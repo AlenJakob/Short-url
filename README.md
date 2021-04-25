@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # short-url
+=======
+# short-url-vue-3
+>>>>>>> 487ea68278446c11164683a34702f1fee5de568b
 
 ## Project setup
 ```
@@ -15,11 +19,14 @@ npm run serve
 npm run build
 ```
 
+<<<<<<< HEAD
 ### Run your tests
 ```
 npm run test
 ```
 
+=======
+>>>>>>> 487ea68278446c11164683a34702f1fee5de568b
 ### Lints and fixes files
 ```
 npm run lint

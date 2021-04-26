@@ -1,4 +1,4 @@
-# short-url
+# short-url-vue-3
 
 ## Project setup
 ```
@@ -15,15 +15,10 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-saasa
 ### Lints and fixes files
 ```
 npm run lint
-```
+`````
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -67,12 +67,22 @@ export default {
     };
   },
   methods: {
-    btnStatus(status, copied) {
-      this.copied = copied;
-      this.links.forEach((link) => {
-        console.log(link);
+    btnStatus(id, copied) {
+      // this.copied = copied;
+      // this.links.forEach((link) => {
+      //   console.log(link);
+      //   link.isActive = false;
+      //   link.id === status ? (link.isActive = !link.isActive) : false;
+
+      // });
+      let copiedLinks = [...this.links];
+      copiedLinks.map((link) => {
         link.isActive = false;
-        link.id === status ? (link.isActive = !link.isActive) : false;
+        return {
+          ...link,
+          isActive:
+            link.id === id ? (link.isActive = true) : (link.isActive = false),
+        };
       });
     },
     shorten() {

@@ -5,8 +5,15 @@
       <div class="search-bar">
         <div class="bar">
           <form class="search">
-            <input class="input" type="text" placeholder="Shorten a link here..." />
-            <button class="btn btn-action">Shorten it!</button>
+            <input
+              v-model="input"
+              class="input"
+              type="text"
+              placeholder="Shorten a link here..."
+            />
+            <button @click.prevent="shorten()" class="btn btn-action">
+              Shorten it!
+            </button>
           </form>
           <label class="txt-warning" for="search">
             <i>Please add a link</i>
@@ -19,32 +26,66 @@
           <div class="action">
             <div class="shorter">{{ link.shorter }}</div>
             <button
-              @click="link.btnStatus = !link.btnStatus"
+              @click="btnStatus(link.id, link.shorter)"
               class="btn btn-copy"
-              :class="link.btnStatus ? 'isActive' : ''"
-            >{{link.btnStatus ? 'Copied' : 'Copy'}}</button>
+              :class="link.isActive ? 'isActive' : ''"
+            >
+              {{ link.isActive ? "Copied" : "Copy" }}
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
-data(){
-  return { 
-    links:[
-      {regular:"regular link",shorter:"shorter link",statusBtn:false},
-      {regular:"regular link",shorter:"shorter link",statusBtn:false},
-      {regular:"regular link",shorter:"shorter link",statusBtn:false}]
-  }
-},
-methods:{
-
-}
-
-}
+  data() {
+    return {
+      input: "",
+      copied: "",
+      links: [
+        {
+          id: 1,
+          regular: "regular link 1",
+          shorter: "shorter link 1",
+          isActive: false,
+        },
+        {
+          id: 2,
+          regular: "regular link 2",
+          shorter: "shorter link 2",
+          isActive: false,
+        },
+        {
+          id: 3,
+          regular: "regular link 3",
+          shorter: "shorter link 3",
+          isActive: false,
+        },
+      ],
+    };
+  },
+  methods: {
+    btnStatus(status, copied) {
+      this.copied = copied;
+      this.links.forEach((link) => {
+        console.log(link);
+        link.isActive = false;
+        link.id === status ? (link.isActive = !link.isActive) : false;
+      });
+    },
+    shorten() {
+      this.links.push({
+        id: 4,
+        regular: this.input,
+        shorter: "some shorten link",
+        isActive: false,
+      });
+      console.log("link is shorted");
+    },
+  },
+};
 </script>
 
 <style lang="scss">

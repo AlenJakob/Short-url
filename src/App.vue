@@ -6,10 +6,9 @@
 
 <script>
 import { defineComponent } from "@vue/runtime-core";
-import Statistics from "./components/statistics/Statistics.vue";
+import Statistics from "./components/statistics/Statistics";
 
 export default defineComponent({
-  name: "App",
   components: {
     Statistics,
   },

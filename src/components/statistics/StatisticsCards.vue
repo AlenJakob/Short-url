@@ -26,7 +26,7 @@
 <script>
 // import Vue from "vue";
 import { defineComponent } from "vue";
-import StatisticsCard from "./StatisticsCard.vue";
+import StatisticsCard from "./StatisticsCard";
 export default defineComponent({
   name: "Statictics",
   components: {

@@ -17,7 +17,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  // name: "StatisticsCard",
   props: {
     title: String,
     message: String,

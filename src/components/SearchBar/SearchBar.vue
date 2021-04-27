@@ -3,37 +3,36 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <div class="bar">
-          <form class="search">
-            <input v-model="input" class="input" type="text" placeholder="Shorten a link here..." />
-            <button @click.prevent="shorten()" class="btn btn-action">Shorten it!</button>
-          </form>
-          <label class="txt-warning" for="search">
-            <i>Please add a link</i>
-          </label>
-        </div>
+        <!-- Input Component with passed method -->
+        <Input :shorten="shorten" />
       </div>
       <div class="links">
         <div class="link" v-for="link in links" :key="link.id">
-          <div class="regular">{{ link.regular }}</div>
+          <div class="regular">{{ link.regularLink }}</div>
           <div class="action">
-            <div class="shorter">{{ link.shorter }}</div>
+            <div class="shorter">{{ link.shorterLink }}</div>
             <button
-              @click="btnStatus(link.id, link.shorter)"
+              @click="btnStatus(link.id, link.shorterLink)"
               class="btn btn-copy"
               :class="link.isActive ? 'isActive' : ''"
-            >{{ link.isActive ? "Copied" : "Copy" }}</button>
+            >
+              {{ link.isActive ? "Copied" : "Copy" }}
+            </button>
           </div>
         </div>
       </div>
-      <h2>{{copied}}</h2>
+      <h2>{{ copied }}</h2>
     </div>
   </div>
 </template>
 
 <script>
-import { uuid } from "./uuid.js"
+import { uuid } from "./uuid.js";
+import Input from "./Input";
 export default {
+  components: {
+    Input,
+  },
   data() {
     return {
       input: "",
@@ -41,20 +40,20 @@ export default {
       links: [
         {
           id: uuid(),
-          regular: "regular link 1",
-          shorter: "shorter link 1",
+          regularLink: "regular link 1",
+          shorterLink: "shorter link 1",
           isActive: false,
         },
         {
           id: uuid(),
-          regular: "regular link 2",
-          shorter: "shorter link 2",
+          regularLink: "regular link 2",
+          shorterLink: "shorter link 2",
           isActive: false,
         },
         {
           id: uuid(),
-          regular: "regular link 3",
-          shorter: "shorter link 3",
+          regularLink: "regular link 3",
+          shorterLink: "shorter link 3",
           isActive: false,
         },
       ],
@@ -62,37 +61,44 @@ export default {
   },
   methods: {
     btnStatus(id, copied) {
-      this.copied = copied
+      this.copied = copied;
       let copiedLinks = [...this.links];
       copiedLinks.map((link) => {
         link.isActive = false;
         return {
           ...link,
-          isActive:
-            link.id === id ? (link.isActive = true) : (link.isActive = false),
+          isActive: link.id === id ? (link.isActive = true) : (link.isActive = false),
         };
       });
     },
-    shorten() {
+    shorten(value) {
+      console.log(value);
       this.links.push({
         id: uuid(),
-        regular: this.input,
-        shorter: this.parseLink(this.input),
+        regularLink: this.validateInput(value),
+        shorterLink: this.parseLink(value),
         isActive: false,
       });
-      console.log("link is shorted" , this.links);
+      console.log("link is shorted", this.links);
     },
-    parseLink(link){
-return link.substr(0,6);
-    }
+    parseLink(link) {
+      return link.substr(0, 6) + "hello";
+    },
+    validateInput(value) {
+      console.log(value);
+      if (value.length < 5) {
+        console.log("to short");
+        return;
+      } else {
+        console.log(value);
+        return value;
+      }
+    },
   },
-  mounted(){
-    // console.log(uuid())
-  }
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .isActive {
   background: hsl(257, 27%, 26%) !important;
 }
@@ -131,41 +137,6 @@ return link.substr(0,6);
     height: 100%;
     z-index: -1;
   }
-  & .bar {
-    width: 100%;
-    display: flex;
-    align-self: center;
-    flex-direction: column;
-    & .search {
-      margin-top: 12.5px;
-      display: flex;
-      & .input {
-        color: hsl(255, 11%, 22%);
-        font-size: 18px;
-        text-indent: 20px;
-        padding: 15px 0;
-        flex-grow: 5;
-        border: 2px solid transparent;
-        &:hover {
-          border: 2px solid #de6979;
-        }
-        &::placeholder {
-          color: hsla(0, 87%, 67%, 0.384);
-        }
-      }
-      & .btn-action {
-        font-size: 18px;
-        flex-grow: 1;
-      }
-    }
-  }
-  & .txt-warning {
-    margin-top: 5px;
-    padding-left: 2px;
-    align-self: flex-start;
-    font-size: 12px;
-    color: #be617a;
-  }
 }
 .btn,
 .input {
@@ -175,9 +146,6 @@ return link.substr(0,6);
 }
 .btn-action {
   font-weight: bold;
-}
-.txt-warning {
-  margin-left: 5px;
 }
 .links {
   margin: 15px 0;

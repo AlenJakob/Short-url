@@ -61,7 +61,6 @@
         background-color: hsl(180, 66%, 49%);
         outline: none;
         cursor: pointer;
-        
       }
     }
     ul {

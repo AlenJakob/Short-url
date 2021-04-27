@@ -30,6 +30,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./src/styles/_variables.scss";
 .card {
   display: flex;
   flex-direction: column;
@@ -45,6 +46,11 @@ export default defineComponent({
   padding: 60px 0 0 20px;
   margin: 0;
   font-size: 20px;
+  @media (max-width: $desktop) {
+    padding: 60px 0 0 0px;
+    margin: 0 auto;
+    text-align: center;
+  }
 }
 
 .paragraph {
@@ -55,6 +61,9 @@ export default defineComponent({
   box-sizing: border-box;
   padding: 20px 20px 40px 20px;
   text-align: left;
+  @media (max-width: $desktop) {
+    text-align: center;
+  }
 }
 
 .icon-wrapper {
@@ -69,5 +78,9 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: $desktop) {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

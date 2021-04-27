@@ -48,12 +48,19 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./src/styles/_variables.scss";
 .cards-wrapper {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: space-around;
   z-index: 1;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
 }
 
 .second-card {
@@ -77,9 +84,33 @@ export default defineComponent({
     right: 0;
     transform: translateX(100%);
   }
+  @media (max-width: $desktop) {
+    margin: 80px 20px 80px 20px;
+    &::before,
+    &::after {
+      position: absolute;
+      content: "";
+      left: 50%;
+      width: 6px;
+      height: 60px;
+      z-index: -1;
+      background: hsl(180, 66%, 49%);
+    }
+    &::before {
+      top: 0;
+      transform: translate(-50%, -150%);
+    }
+    &::after {
+      top: 100%;
+      transform: translateX(-50%);
+    }
+  }
 }
 
 .third-card {
   margin-top: 80px;
+  @media (max-width: $desktop) {
+    margin: 0;
+  }
 }
 </style>

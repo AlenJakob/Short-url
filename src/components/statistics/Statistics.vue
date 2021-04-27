@@ -22,6 +22,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./src/styles/_variables.scss";
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -35,6 +36,9 @@ export default defineComponent({
 
 .header {
   margin-bottom: 100px;
+  @media (max-width: $desktop) {
+    margin-bottom: 80px;
+  }
 }
 
 .title {
@@ -45,5 +49,8 @@ export default defineComponent({
   color: hsl(257, 7%, 63%);
   width: 60%;
   margin: 0 auto;
+  @media (max-width: $desktop) {
+    width: 90%;
+  }
 }
 </style>

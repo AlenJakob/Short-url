@@ -5,15 +5,8 @@
       <div class="search-bar">
         <div class="bar">
           <form class="search">
-            <input
-              v-model="input"
-              class="input"
-              type="text"
-              placeholder="Shorten a link here..."
-            />
-            <button @click.prevent="shorten()" class="btn btn-action">
-              Shorten it!
-            </button>
+            <input v-model="input" class="input" type="text" placeholder="Shorten a link here..." />
+            <button @click.prevent="shorten()" class="btn btn-action">Shorten it!</button>
           </form>
           <label class="txt-warning" for="search">
             <i>Please add a link</i>
@@ -29,16 +22,17 @@
               @click="btnStatus(link.id, link.shorter)"
               class="btn btn-copy"
               :class="link.isActive ? 'isActive' : ''"
-            >
-              {{ link.isActive ? "Copied" : "Copy" }}
-            </button>
+            >{{ link.isActive ? "Copied" : "Copy" }}</button>
           </div>
         </div>
       </div>
+      <h2>{{copied}}</h2>
     </div>
   </div>
 </template>
+
 <script>
+import { uuid } from "./uuid.js"
 export default {
   data() {
     return {
@@ -46,19 +40,19 @@ export default {
       copied: "",
       links: [
         {
-          id: 1,
+          id: uuid(),
           regular: "regular link 1",
           shorter: "shorter link 1",
           isActive: false,
         },
         {
-          id: 2,
+          id: uuid(),
           regular: "regular link 2",
           shorter: "shorter link 2",
           isActive: false,
         },
         {
-          id: 3,
+          id: uuid(),
           regular: "regular link 3",
           shorter: "shorter link 3",
           isActive: false,
@@ -68,13 +62,7 @@ export default {
   },
   methods: {
     btnStatus(id, copied) {
-      // this.copied = copied;
-      // this.links.forEach((link) => {
-      //   console.log(link);
-      //   link.isActive = false;
-      //   link.id === status ? (link.isActive = !link.isActive) : false;
-
-      // });
+      this.copied = copied
       let copiedLinks = [...this.links];
       copiedLinks.map((link) => {
         link.isActive = false;
@@ -87,14 +75,20 @@ export default {
     },
     shorten() {
       this.links.push({
-        id: 4,
+        id: uuid(),
         regular: this.input,
-        shorter: "some shorten link",
+        shorter: this.parseLink(this.input),
         isActive: false,
       });
-      console.log("link is shorted");
+      console.log("link is shorted" , this.links);
     },
+    parseLink(link){
+return link.substr(0,6);
+    }
   },
+  mounted(){
+    // console.log(uuid())
+  }
 };
 </script>
 

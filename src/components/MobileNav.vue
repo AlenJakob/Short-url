@@ -71,7 +71,7 @@
       li{
            padding: 10px;
         :hover{
-          color:  hsl(0, 0%, 9%);
+          color:  hsl(0, 0%, 91%);
         }
       }
       a{

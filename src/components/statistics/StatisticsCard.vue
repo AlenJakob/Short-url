@@ -40,6 +40,9 @@ export default defineComponent({
   height: 240px;
   background: #fff;
   position: relative;
+  @media (max-width: $desktop) {
+    max-width: 90%;
+  }
 }
 
 .title {

@@ -85,7 +85,7 @@ export default defineComponent({
     transform: translateX(100%);
   }
   @media (max-width: $desktop) {
-    margin: 80px 20px 80px 20px;
+    margin: 80px 0px 80px 0px;
     &::before,
     &::after {
       position: absolute;

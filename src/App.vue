@@ -1,6 +1,5 @@
 <template>
     <Navigation v-if="!Mobile" />
-    
       <div class="Burger-menu" v-if="Mobile">
         <img alt="Site logo" src="./assets/logo.svg" width="121" height="33" class="site-logo"/>
         <img class="burger-icon" src="./assets/hamburger-menu-icon.svg" alt="burger-icon" @click="OpenNav = !OpenNav"/>

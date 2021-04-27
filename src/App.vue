@@ -1,14 +1,19 @@
 <template>
     <Navigation v-if="!Mobile" />
-    <div class="Burger-menu" v-if="Mobile">
-      <img alt="Site logo" src="./assets/logo.svg" width="121" height="33" class="site-logo"/>
-      <img class="burger-icon" src="./assets/hamburger-menu-icon.svg" alt="burger-icon"/>
+    
+      <div class="Burger-menu" v-if="Mobile">
+        <img alt="Site logo" src="./assets/logo.svg" width="121" height="33" class="site-logo"/>
+        <img class="burger-icon" src="./assets/hamburger-menu-icon.svg" alt="burger-icon" @click="OpenNav = !OpenNav"/>
+      </div>
+    <div class="content" :class="{'open':OpenNav}">
+       <MobileNav />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navigation from "./components/Navigation.vue";
+import MobileNav from "./components/MobileNav.vue";
 
 
 export default defineComponent({
@@ -16,15 +21,16 @@ export default defineComponent({
   data: (): { Mobile: boolean; OpenNav: boolean; } => {
     return{
       Mobile: true,
-      OpenNav: false
+      OpenNav: true
     }
   },
   methods:{
     MobileViev(): void{
-      this.Mobile = window.innerWidth <= 990;
+      this.Mobile = window.innerWidth <= 910;
     }
   },
   components: {
+    MobileNav,
     Navigation,
   },
   created(): void{
@@ -52,4 +58,7 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.open{
+      display: none;
+  }
 </style>

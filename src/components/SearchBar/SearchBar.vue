@@ -80,11 +80,10 @@ export default defineComponent({
       let copiedLinks = [...this.links];
 
       copiedLinks.find((listItem) => {
-         listItem.id === id
+        listItem.id === id
           ? (listItem.isActive = true)
           : (listItem.isActive = false);
       });
-
     },
     shorten(inputValue) {
       this.links.push({
@@ -104,9 +103,11 @@ export default defineComponent({
   background: hsl(257, 27%, 26%) !important;
 }
 .main-bar {
-  width: 768px;
+  width: 90%;
+  max-width:1000px;
 }
 .section__search {
+  width: 100%;
   display: flex;
   justify-content: center;
 }

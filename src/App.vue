@@ -25,6 +25,7 @@ export default defineComponent({
   },
   methods:{
     MobileViev(): void{
+//      console.log(window.innerWidth);
       this.Mobile = window.innerWidth <= 910;
     }
   },
@@ -33,6 +34,7 @@ export default defineComponent({
     Navigation,
   },
   created(): void{
+    window.addEventListener("resize", this.MobileViev);
     this.MobileViev();
   }
 });

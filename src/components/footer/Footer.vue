@@ -1,10 +1,14 @@
 <template>
   <footer class="footer">
     <div class="wrapper">
-      <h3 class="logo">Shortly</h3>
+      <h3 class="logo">
+        <img src="@/assets/logo.svg" alt="" srcset="" width="121" height="33" />
+      </h3>
+
       <div class="sections-wrapper">
         <div class="section">
           <h4>Features</h4>
+
           <ul>
             <li>Link shortening</li>
             <li>Branded Links</li>
@@ -90,8 +94,7 @@ export default defineComponent({});
 }
 
 .logo {
-  color: #fff;
-  font-size: 30px;
+  filter: brightness(0) invert(1);
   margin: 0;
 }
 

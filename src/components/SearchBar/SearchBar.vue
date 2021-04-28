@@ -3,11 +3,10 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-      <!-- v-model on custom component -->
+        <!-- v-model on custom component -->
         <Input :shorten="shorten" />
       </div>
-      <h3>{{ dupa.name }} </h3>
-      <h3>{{ second.name }} </h3>
+
       <div class="links">
         <div class="link" v-for="link in links" :key="link.id">
           <div class="regular">{{ link.regularLink }}</div>
@@ -29,7 +28,7 @@
 </template>
 
 <script>
-import { ref, defineComponent, reactive } from 'vue';
+import { ref, defineComponent, reactive } from "vue";
 import { uuid, validateInput, parseLink } from "./helpers.js";
 import Input from "./Input";
 export default defineComponent({
@@ -37,12 +36,11 @@ export default defineComponent({
     Input,
   },
   setup() {
-    const dupa = ref({name:"Alen"});
-    const second = reactive({
-      name: 'Alen',
-    })
-
-    return {dupa, second}
+    // const dupa = ref({ name: "Alen" });
+    // const second = reactive({
+    //   name: "Alen",
+    // });
+    // return { dupa, second };
   },
   data() {
     return {
@@ -75,18 +73,18 @@ export default defineComponent({
     // currentlyActive.active = false;
     // nextActive.active = true;
     // find for get current clicked  btn / second to change status of the btn
-    // reduce -> 
-    // for..of 
+    // reduce ->
+    // for..of
     btnStatus(id, copied) {
       this.copied = copied;
       let copiedLinks = [...this.links];
-      copiedLinks.map((link) => {
-        link.isActive = false;
-        return {
-          ...link,
-          isActive: link.id === id ? (link.isActive = true) : (link.isActive = false),
-        };
+
+      copiedLinks.find((listItem) => {
+         listItem.id === id
+          ? (listItem.isActive = true)
+          : (listItem.isActive = false);
       });
+
     },
     shorten(inputValue) {
       this.links.push({

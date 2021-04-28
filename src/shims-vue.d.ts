@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-declare module "*.vue" {
-  import Vue from "vue";
-  export default Vue;
-=======
 /* eslint-disable */
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
-  export default component
->>>>>>> 487ea68278446c11164683a34702f1fee5de568b
+declare module "*.vue" {
+  import type { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
 }

@@ -2,12 +2,12 @@
   <div class="bar">
     <form class="search">
       <input
-        v-model="inputVal"
+        v-model="inputValue"
         class="input"
         type="text"
         placeholder="Shorten a link here..."
       />
-      <button @click.prevent="shorten(inputVal)" class="btn btn-action">Shorten it!</button>
+      <button @click.prevent="shorten(inputValue)" class="btn btn-action">Shorten it!</button>
     </form>
     <label class="txt-warning" for="search">
       <i>Please add a link</i>
@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      inputVal: "",
+      inputValue: "",
     };
   },
 };

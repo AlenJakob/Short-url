@@ -3,9 +3,11 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <!-- Input Component with passed method -->
+      <!-- v-model on custom component -->
         <Input :shorten="shorten" />
       </div>
+      <h3>{{ dupa.name }} </h3>
+      <h3>{{ second.name }} </h3>
       <div class="links">
         <div class="link" v-for="link in links" :key="link.id">
           <div class="regular">{{ link.regularLink }}</div>
@@ -27,11 +29,20 @@
 </template>
 
 <script>
-import { uuid } from "./uuid.js";
+import { ref, defineComponent, reactive } from 'vue';
+import { uuid, validateInput, parseLink } from "./helpers.js";
 import Input from "./Input";
-export default {
+export default defineComponent({
   components: {
     Input,
+  },
+  setup() {
+    const dupa = ref({name:"Alen"});
+    const second = reactive({
+      name: 'Alen',
+    })
+
+    return {dupa, second}
   },
   data() {
     return {
@@ -60,6 +71,12 @@ export default {
     };
   },
   methods: {
+    // const {currentlyActive, nextActive } = this.links.reduce(() => //)
+    // currentlyActive.active = false;
+    // nextActive.active = true;
+    // find for get current clicked  btn / second to change status of the btn
+    // reduce -> 
+    // for..of 
     btnStatus(id, copied) {
       this.copied = copied;
       let copiedLinks = [...this.links];
@@ -71,31 +88,17 @@ export default {
         };
       });
     },
-    shorten(value) {
-      console.log(value);
+    shorten(inputValue) {
       this.links.push({
         id: uuid(),
-        regularLink: this.validateInput(value),
-        shorterLink: this.parseLink(value),
+        regularLink: validateInput(inputValue),
+        shorterLink: parseLink(inputValue),
         isActive: false,
       });
       console.log("link is shorted", this.links);
     },
-    parseLink(link) {
-      return link.substr(0, 6) + "hello";
-    },
-    validateInput(value) {
-      console.log(value);
-      if (value.length < 5) {
-        console.log("to short");
-        return;
-      } else {
-        console.log(value);
-        return value;
-      }
-    },
   },
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -138,12 +141,7 @@ export default {
     z-index: -1;
   }
 }
-.btn,
-.input {
-  cursor: pointer;
-  border-radius: 8px;
-  margin: 0 8px;
-}
+
 .btn-action {
   font-weight: bold;
 }
@@ -181,6 +179,12 @@ export default {
       color: hsl(257, 27%, 26%) !important;
     }
   }
+}
+.btn,
+.input {
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 0 8px;
 }
 .btn {
   background: hsl(180, 66%, 49%);

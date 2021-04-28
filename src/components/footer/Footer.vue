@@ -82,6 +82,9 @@ export default defineComponent({});
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: $desktop) {
+    height: auto;
+  }
 }
 
 .wrapper {
@@ -91,11 +94,20 @@ export default defineComponent({});
   width: 100%;
   max-width: 1000px;
   padding: 10px;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+  }
 }
 
 .logo {
   filter: brightness(0) invert(1);
   margin: 0;
+  @media (max-width: $desktop) {
+    margin-bottom: 20px;
+  }
 }
 
 .icon {
@@ -106,16 +118,27 @@ export default defineComponent({});
   display: flex;
   width: 65%;
   justify-content: space-between;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+  }
 }
 
 .section {
   display: flex;
   flex-direction: column;
   color: $grayishViolet;
+  @media (max-width: $desktop) {
+    padding: 10px 0;
+  }
 }
 
 .social {
   display: flex;
+  @media (max-width: $desktop) {
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+  }
 }
 
 ul {
@@ -123,6 +146,9 @@ ul {
   text-align: left;
   margin: 0;
   padding: 0;
+  @media (max-width: $desktop) {
+    text-align: center;
+  }
 }
 
 li {
@@ -136,5 +162,8 @@ h4 {
   text-align: left;
   color: #fff;
   font-size: 14px;
+  @media (max-width: $desktop) {
+    text-align: center;
+  }
 }
 </style>

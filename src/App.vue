@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Statistics />
+    <Footer />
   </div>
 </template>
 
 <script>
 import { defineComponent } from "@vue/runtime-core";
 import Statistics from "./components/statistics/Statistics";
+import Footer from "./components/footer/Footer";
 
 export default defineComponent({
   components: {
     Statistics,
+    Footer,
   },
 });
 </script>
@@ -25,5 +28,14 @@ export default defineComponent({
   text-align: center;
   background: #ecedf4;
   font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>

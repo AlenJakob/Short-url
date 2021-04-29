@@ -58,31 +58,32 @@ export default defineComponent({
       },
     ];
 
-      btnStatus(id, copied) => {
-        copied = copied;
-        let copiedLinks = [...links];
-        copiedLinks.find((listItem) => {
-          listItem.id === id ? (listItem.isActive = true) : (listItem.isActive = false);
-        });
-      };
+    const btnStatus = (id, copied) => {
+      let copiedLinks = [...links];
+      copiedLinks.find((listItem) => {
+        listItem.id === id
+          ? (listItem.isActive = true)
+          : (listItem.isActive = false);
+      });
+    };
     // onMounted() =>{
     //   console.log(input)
     //   }
 
-      shorten(inputValue) =>{
-        links.push({
-          id: uuid(),
-          regularLink: validateInput(inputValue),
-          shorterLink: parseLink(inputValue),
-          isActive: false,
-        });
-        console.log("link is shorted", links);
-      }
- watchEffect(() => {
-      console.log("from WATCH >>",input.value," << from WATCH ");
+    const shorten = (inputValue) => {
+      links.push({
+        id: uuid(),
+        regularLink: validateInput(inputValue),
+        shorterLink: parseLink(inputValue),
+        isActive: false,
+      });
+      console.log("link is shorted", links);
+    };
+    watchEffect(() => {
+      console.log("from WATCH >>", input.value, " << from WATCH ");
     });
-    return { input, copied, links };
-  }
+    return { input, copied, links, btnStatus, shorten };
+  },
 });
 </script>
 
@@ -91,7 +92,8 @@ export default defineComponent({
   background: hsl(257, 27%, 26%) !important;
 }
 .main-bar {
-  width: 768px;
+  width: 100%;
+  max-width: 1000px;
 }
 .section__search {
   display: flex;

@@ -7,9 +7,7 @@
         type="text"
         placeholder="Shorten a link here..."
       />
-      <!-- <button @click.prevent="btnStatus(input)" class="btn btn-action">
-        Shorten it!
-      </button> -->
+
       <button @click.prevent="shorten(input)" class="btn btn-action">
         Shorten it!
       </button>
@@ -21,8 +19,8 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
-export default {
+import { ref, onMounted, defineComponent } from "vue";
+export default defineComponent({
   props: {
     shorten: Function,
   },
@@ -38,7 +36,7 @@ export default {
     });
     return { handleClick, input };
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

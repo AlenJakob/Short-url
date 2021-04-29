@@ -3,8 +3,8 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <!-- v-model on custom component -->
-        <Input v-model="input" />
+        <!-- v-model on custom component  -->
+        <Input :shorten="shorten" />
       </div>
       <div class="links">
         <div class="link" v-for="link in links" :key="link.id">
@@ -37,7 +37,7 @@ export default defineComponent({
   setup() {
     const input = ref("");
     const copied = ref("");
-    const links = [
+    const links = ref([
       {
         id: uuid(),
         regularLink: "regular link 1",
@@ -56,32 +56,27 @@ export default defineComponent({
         shorterLink: "shorter link 3",
         isActive: false,
       },
-    ];
+    ]);
 
     const btnStatus = (id, copied) => {
-      let copiedLinks = [...links];
+      console.log("btnstatus");
+      let copiedLinks = [...links.value];
       copiedLinks.find((listItem) => {
         listItem.id === id
           ? (listItem.isActive = true)
           : (listItem.isActive = false);
       });
     };
-    // onMounted() =>{
-    //   console.log(input)
-    //   }
 
     const shorten = (inputValue) => {
-      links.push({
+      links.value.push({
         id: uuid(),
         regularLink: validateInput(inputValue),
         shorterLink: parseLink(inputValue),
         isActive: false,
       });
-      console.log("link is shorted", links);
     };
-    watchEffect(() => {
-      console.log("from WATCH >>", input.value, " << from WATCH ");
-    });
+    watchEffect(() => {});
     return { input, copied, links, btnStatus, shorten };
   },
 });
@@ -92,7 +87,7 @@ export default defineComponent({
   background: hsl(257, 27%, 26%) !important;
 }
 .main-bar {
-  width: 100%;
+  width: 90%;
   max-width: 1000px;
 }
 .section__search {

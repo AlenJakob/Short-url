@@ -4,12 +4,15 @@
       <input
         class="input"
         v-model="input"
-        ref="input.value"
-        :input="input"
         type="text"
         placeholder="Shorten a link here..."
       />
-      <button @click.prevent="handleClick()" class="btn btn-action">Shorten it!</button>
+      <!-- <button @click.prevent="btnStatus(input)" class="btn btn-action">
+        Shorten it!
+      </button> -->
+      <button @click.prevent="shorten(input)" class="btn btn-action">
+        Shorten it!
+      </button>
     </form>
     <label class="txt-warning" for="search">
       <i>Please add a link</i>
@@ -20,6 +23,9 @@
 <script>
 import { ref, onMounted } from "vue";
 export default {
+  props: {
+    shorten: Function,
+  },
   // How to Emit fucntion
   setup(props, { emit }) {
     const input = ref("");
@@ -29,7 +35,6 @@ export default {
     };
     onMounted(() => {
       // twoj kod mounted
-      console.log("hello", emit);
     });
     return { handleClick, input };
   },

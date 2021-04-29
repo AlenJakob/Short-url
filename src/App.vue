@@ -36,6 +36,7 @@ export default defineComponent({
   created(): void{
     window.addEventListener("resize", this.MobileViev);
     this.MobileViev();
+    window.onresize = function(){location.reload();}
   }
 });
 </script>

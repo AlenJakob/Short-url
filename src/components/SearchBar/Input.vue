@@ -7,9 +7,6 @@
         type="text"
         placeholder="Shorten a link here..."
       />
-      <!-- <button @click.prevent="btnStatus(input)" class="btn btn-action">
-        Shorten it!
-      </button> -->
       <button @click.prevent="shorten(input)" class="btn btn-action">
         Shorten it!
       </button>
@@ -20,22 +17,18 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from "vue";
+<script lang="ts">
+import { Ref, ref } from "vue";
 export default {
   props: {
     shorten: Function,
   },
-  // How to Emit fucntion
-  setup(props, { emit }) {
+
+  setup(): { handleClick: () => void; input: Ref<string> } {
     const input = ref("");
-    const handleClick = (e) => {
+    const handleClick = () => {
       console.log("from Input Component -", input.value);
-      // $emit(e.target);
     };
-    onMounted(() => {
-      // twoj kod mounted
-    });
     return { handleClick, input };
   },
 };

@@ -3,10 +3,9 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <!-- v-model on custom component  -->
         <Input :shorten="shorten" />
       </div>
-      <Links :links="links" />
+      <Links :links="links" :btnStatus="btnStatus" />
       <h2>{{ copied }}</h2>
     </div>
   </div>
@@ -14,7 +13,7 @@
 
 <script>
 import { ref, defineComponent } from "vue";
-import { uuid, validateInput, parseLink } from "./helpers.js";
+import { uuid, validateInput, parseLink } from "./helpers.ts";
 import Input from "./Input";
 import Links from "./Links";
 export default defineComponent({
@@ -70,9 +69,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.isActive {
-  background: hsl(257, 27%, 26%) !important;
-}
 .main-bar {
   width: 90%;
   max-width: 1000px;

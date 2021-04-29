@@ -2,12 +2,14 @@
   <div class="bar">
     <form class="search">
       <input
-        v-model="inputValue"
         class="input"
+        v-model="input"
+        ref="input.value"
+        :input="input"
         type="text"
         placeholder="Shorten a link here..."
       />
-      <button @click.prevent="shorten(inputValue)" class="btn btn-action">Shorten it!</button>
+      <button @click.prevent="handleClick()" class="btn btn-action">Shorten it!</button>
     </form>
     <label class="txt-warning" for="search">
       <i>Please add a link</i>
@@ -16,19 +18,25 @@
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
 export default {
-  props: {
-    shorten: { type: Function },
-  },
-  data() {
-    return {
-      inputValue: "",
+  // How to Emit fucntion
+  setup(props, { emit }) {
+    const input = ref("");
+    const handleClick = (e) => {
+      console.log("from Input Component -", input.value);
+      // $emit(e.target);
     };
+    onMounted(() => {
+      // twoj kod mounted
+      console.log("hello", emit);
+    });
+    return { handleClick, input };
   },
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .bar {
   width: 100%;
   display: flex;

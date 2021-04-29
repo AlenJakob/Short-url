@@ -4,9 +4,8 @@
     <div class="main-bar">
       <div class="search-bar">
         <!-- v-model on custom component -->
-        <Input :shorten="shorten" />
+        <Input v-model="input" />
       </div>
-
       <div class="links">
         <div class="link" v-for="link in links" :key="link.id">
           <div class="regular">{{ link.regularLink }}</div>
@@ -28,7 +27,7 @@
 </template>
 
 <script>
-import { ref, defineComponent, reactive } from "vue";
+import { ref, defineComponent, reactive, onMounted, watchEffect } from "vue";
 import { uuid, validateInput, parseLink } from "./helpers.js";
 import Input from "./Input";
 export default defineComponent({
@@ -36,65 +35,54 @@ export default defineComponent({
     Input,
   },
   setup() {
-    // const dupa = ref({ name: "Alen" });
-    // const second = reactive({
-    //   name: "Alen",
-    // });
-    // return { dupa, second };
-  },
-  data() {
-    return {
-      input: "",
-      copied: "",
-      links: [
-        {
-          id: uuid(),
-          regularLink: "regular link 1",
-          shorterLink: "shorter link 1",
-          isActive: false,
-        },
-        {
-          id: uuid(),
-          regularLink: "regular link 2",
-          shorterLink: "shorter link 2",
-          isActive: false,
-        },
-        {
-          id: uuid(),
-          regularLink: "regular link 3",
-          shorterLink: "shorter link 3",
-          isActive: false,
-        },
-      ],
-    };
-  },
-  methods: {
-    // const {currentlyActive, nextActive } = this.links.reduce(() => //)
-    // currentlyActive.active = false;
-    // nextActive.active = true;
-    // find for get current clicked  btn / second to change status of the btn
-    // reduce ->
-    // for..of
-    btnStatus(id, copied) {
-      this.copied = copied;
-      let copiedLinks = [...this.links];
-
-      copiedLinks.find((listItem) => {
-        listItem.id === id
-          ? (listItem.isActive = true)
-          : (listItem.isActive = false);
-      });
-    },
-    shorten(inputValue) {
-      this.links.push({
+    const input = ref("");
+    const copied = ref("");
+    const links = [
+      {
         id: uuid(),
-        regularLink: validateInput(inputValue),
-        shorterLink: parseLink(inputValue),
+        regularLink: "regular link 1",
+        shorterLink: "shorter link 1",
         isActive: false,
-      });
-      console.log("link is shorted", this.links);
-    },
-  },
+      },
+      {
+        id: uuid(),
+        regularLink: "regular link 2",
+        shorterLink: "shorter link 2",
+        isActive: false,
+      },
+      {
+        id: uuid(),
+        regularLink: "regular link 3",
+        shorterLink: "shorter link 3",
+        isActive: false,
+      },
+    ];
+
+      btnStatus(id, copied) => {
+        copied = copied;
+        let copiedLinks = [...links];
+        copiedLinks.find((listItem) => {
+          listItem.id === id ? (listItem.isActive = true) : (listItem.isActive = false);
+        });
+      };
+    // onMounted() =>{
+    //   console.log(input)
+    //   }
+
+      shorten(inputValue) =>{
+        links.push({
+          id: uuid(),
+          regularLink: validateInput(inputValue),
+          shorterLink: parseLink(inputValue),
+          isActive: false,
+        });
+        console.log("link is shorted", links);
+      }
+ watchEffect(() => {
+      console.log("from WATCH >>",input.value," << from WATCH ");
+    });
+    return { input, copied, links };
+  }
 });
 </script>
 
@@ -103,11 +91,9 @@ export default defineComponent({
   background: hsl(257, 27%, 26%) !important;
 }
 .main-bar {
-  width: 90%;
-  max-width:1000px;
+  width: 768px;
 }
 .section__search {
-  width: 100%;
   display: flex;
   justify-content: center;
 }

@@ -2,18 +2,21 @@
   <div id="app">
     <SearchBar />
     <Statistics />
+    <Footer />
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 import SearchBar from "./components/SearchBar/SearchBar.vue";
 import Statistics from "./components/statistics/Statistics.vue";
+import Footer from "./components/footer/Footer";
 
 export default defineComponent({
   components: {
     SearchBar,
     Statistics,
+    Footer,
   },
 });
 </script>
@@ -32,5 +35,14 @@ export default defineComponent({
   margin-top: 60px;
   max-width: 1440px;
   font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>

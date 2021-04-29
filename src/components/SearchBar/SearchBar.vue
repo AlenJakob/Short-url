@@ -3,9 +3,9 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :shorten="shorten" />
-        <Links :links="links" />
+        <Input :links="links"  />
       </div>
+      <Links :links="links" />
     </div>
   </div>
 </template>

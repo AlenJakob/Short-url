@@ -17,34 +17,27 @@
 </template>
 
 <script>
-import { defineComponent, isMounted, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { uuid, validateInput, parseLink } from "./helpers.js";
 export default defineComponent({
   props: { links: Array },
   setup(props) {
     const links = ref("links");
-    const shorten = (inputValue) => {
-      //   links.push({
-      //     id: uuid(),
-      //     regularLink: validateInput(inputValue),
-      //     shorterLink: parseLink(inputValue),
-      //     isActive: false,
-      //   });
-    };
+
     const btnStatus = (id, copied) => {
-      //   console.log("btnstatus");
-      //   let copiedLinks = [...links];
-      //   copiedLinks.find((listItem) => {
-      //     listItem.id === id
-      //       ? (listItem.isActive = true)
-      //       : (listItem.isActive = false);
-      //   });
+      console.log("btnstatus");
+      let copiedLinks = [...links];
+      copiedLinks.find((listItem) => {
+        listItem.id === id
+          ? (listItem.isActive = true)
+          : (listItem.isActive = false);
+      });
     };
-    isMounted(() => {
+    onMounted(() => {
       console.log(links);
       console.log("GG");
     });
-    return { shorten, btnStatus, links };
+    return { btnStatus };
   },
 });
 </script>

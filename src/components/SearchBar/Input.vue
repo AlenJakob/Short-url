@@ -19,22 +19,28 @@
 </template>
 
 <script>
-import { ref, onMounted, defineComponent } from "vue";
+import { ref, onMounted, defineComponent, reactive } from "vue";
+import { uuid, validateInput, parseLink } from "./helpers.js";
 export default defineComponent({
-  props: {
-    shorten: Function,
-  },
   // How to Emit fucntion
+  props: { links: Array },
   setup(props, { emit }) {
+    const links = ref("links");
     const input = ref("");
     const handleClick = (e) => {
       console.log("from Input Component -", input.value);
-      // $emit(e.target);
     };
-    onMounted(() => {
-      // twoj kod mounted
-    });
-    return { handleClick, input };
+
+    const shorten = () => {
+      console.log(links.value);
+      links.value.push({
+        id: uuid(),
+        regularLink: validateInput(input),
+        shorterLink: input,
+        isActive: false,
+      });
+    };
+    return { handleClick, input, shorten };
   },
 });
 </script>

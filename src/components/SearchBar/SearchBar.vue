@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { ref, defineComponent, reactive, onMounted, watchEffect } from "vue";
+import { ref, defineComponent } from "vue";
 import { uuid, validateInput, parseLink } from "./helpers.js";
 import Input from "./Input";
 export default defineComponent({
@@ -76,7 +76,6 @@ export default defineComponent({
         isActive: false,
       });
     };
-    watchEffect(() => {});
     return { input, copied, links, btnStatus, shorten };
   },
 });

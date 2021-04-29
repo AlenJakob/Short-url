@@ -32,6 +32,7 @@ export default defineComponent({
   margin: 0 auto;
   padding-bottom: 100px;
   max-width: 1000px;
+  background-color: hsl(230, 25%, 95%);
 }
 
 .header {

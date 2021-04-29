@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <SearchBar />
-    <Statistics />
+    <div class="main">
+      <SearchBar />
+      <Statistics />
+    </div>
     <Footer />
   </div>
 </template>
@@ -33,16 +35,17 @@ export default defineComponent({
   text-align: center;
   color: hsl(257, 27%, 26%);
   margin-top: 60px;
+  width: 100%;
+}
+
+.main {
   max-width: 1440px;
-  font-family: "Poppins", sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  margin: 0 auto;
 }
 
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 </style>

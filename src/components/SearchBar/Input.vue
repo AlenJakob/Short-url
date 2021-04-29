@@ -1,4 +1,11 @@
 <template>
+  <loading
+    v-model:active="isLoading"
+    :can-cancel="false"
+    :opacity="0.5"
+    color="hsl(257, 27%, 26%)"
+    :lock-scroll="true"
+  />
   <div class="search-bar">
     <div class="bar">
       <form class="search">
@@ -21,22 +28,33 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from "vue";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default defineComponent({
   props: ["updateShortenList", "links"],
-
-  setup(props): { handleClick: () => void; input: Ref<string> } {
+  components: { Loading },
+  setup(
+    props
+  ): { handleClick: () => void; input: Ref<string>; isLoading: Ref<boolean> } {
     const input = ref("");
+    const isLoading = ref(false);
     const handleClick = () => {
+      isLoading.value = true;
       fetch(`https://api.shrtco.de/v2/shorten?url=${input.value}`)
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
           console.log(res.result.short_link2);
           props.updateShortenList(input.value, res.result.short_link2);
+          isLoading.value = false;
+        })
+        .catch((err) => {
+          isLoading.value = false;
+          console.log(err);
         });
     };
 
-    return { handleClick, input };
+    return { handleClick, input, isLoading };
   },
 });
 </script>

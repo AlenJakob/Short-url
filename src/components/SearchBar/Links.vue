@@ -1,8 +1,11 @@
 <template>
   <div class="links">
-    <div class="link" v-for="link in props.links" :key="link.id">
-      <Link :link="link" :btnStatus="props.btnStatus" />
-    </div>
+    <Link
+      :link="link"
+      :btnStatus="props.btnStatus"
+      v-for="link in props.links"
+      :key="link.id"
+    />
   </div>
 </template>
 
@@ -25,24 +28,5 @@ export default defineComponent({
   font-size: 18px;
   display: flex;
   flex-direction: column;
-}
-
-.link {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
-  margin-bottom: 15px;
-  padding: 10px 20px;
-  border-radius: 4px;
-  color: hsl(180, 66%, 49%);
-  & .btn {
-    font-weight: bold;
-  }
-  & .regular {
-    color: hsl(257, 27%, 26%) !important;
-  }
 }
 </style>

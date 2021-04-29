@@ -1,19 +1,21 @@
 <template>
-  <div class="bar">
-    <form class="search">
-      <input
-        class="input"
-        v-model="input"
-        type="text"
-        placeholder="Shorten a link here..."
-      />
-      <button @click.prevent="handleClick" class="btn btn-action">
-        Shorten it!
-      </button>
-    </form>
-    <label class="txt-warning" for="search">
-      <i>Please add a link</i>
-    </label>
+  <div class="search-bar">
+    <div class="bar">
+      <form class="search">
+        <input
+          class="input"
+          v-model="input"
+          type="text"
+          placeholder="Shorten a link here..."
+        />
+        <button @click.prevent="handleClick" class="btn btn-action">
+          Shorten it!
+        </button>
+      </form>
+      <label class="txt-warning" for="search">
+        <i>Please add a link</i>
+      </label>
+    </div>
   </div>
 </template>
 
@@ -40,6 +42,27 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.search-bar {
+  display: flex;
+  border-radius: 8px;
+  padding: 1.5em 2em;
+  position: relative;
+  background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
+  background-size: cover;
+  color: hsl(257, 27%, 26%);
+  & ::before {
+    border-radius: 8px;
+    content: "";
+    display: flex;
+    left: 0px;
+    bottom: 0;
+    background: hsl(257, 27%, 26%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+}
 .bar {
   width: 100%;
   display: flex;

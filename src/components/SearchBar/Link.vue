@@ -1,14 +1,16 @@
 <template>
-  <div class="regular">{{ props.link.regularLink }}</div>
-  <div class="action">
-    <div class="shorter">{{ props.link.shorterLink }}</div>
-    <button
-      @click="btnStatus(props.link.id, props.link.shorterLink)"
-      class="btn btn-copy"
-      :class="props.link.isActive ? 'isActive' : ''"
-    >
-      {{ props.link.isActive ? "Copied" : "Copy" }}
-    </button>
+  <div class="link">
+    <div class="regular">{{ props.link.regularLink }}</div>
+    <div class="action">
+      <div class="shorter">{{ props.link.shorterLink }}</div>
+      <button
+        @click="btnStatus(props.link.id, props.link.shorterLink)"
+        class="btn btn-copy"
+        :class="props.link.isActive ? 'isActive' : ''"
+      >
+        {{ props.link.isActive ? "Copied" : "Copy" }}
+      </button>
+    </div>
   </div>
 </template>
 

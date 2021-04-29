@@ -2,9 +2,7 @@
   <div class="section__search">
     <div class="search-bg"></div>
     <div class="main-bar">
-      <div class="search-bar">
-        <Input :updateShortenList="updateShortenList" :links="links" />
-      </div>
+      <Input :updateShortenList="updateShortenList" :links="links" />
       <Links :links="links" :btnStatus="btnStatus" />
       <h2>{{ copied }}</h2>
     </div>
@@ -71,27 +69,6 @@ export default defineComponent({
   min-height: 100vh;
   z-index: -1;
   background: hsl(230, 25%, 95%);
-}
-.search-bar {
-  display: flex;
-  border-radius: 8px;
-  padding: 1.5em 2em;
-  position: relative;
-  background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
-  background-size: cover;
-  color: hsl(257, 27%, 26%);
-  & ::before {
-    border-radius: 8px;
-    content: "";
-    display: flex;
-    left: 0px;
-    bottom: 0;
-    background: hsl(257, 27%, 26%);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
 }
 
 .btn-action {

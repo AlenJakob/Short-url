@@ -3,7 +3,7 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :links="links"  />
+        <Input :shorten="shorten" />
       </div>
       <Links :links="links" />
     </div>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
-import { uuid } from "./helpers.js";
+import { ref, defineComponent, onMounted } from "vue";
+import { uuid, validateInput, parseLink } from "./helpers.js";
 import Input from "./Input";
 import Links from "./Links";
 export default defineComponent({
@@ -42,16 +42,20 @@ export default defineComponent({
         isActive: false,
       },
     ]);
-
-    return { input, links };
+    const shorten = (val) => {
+      links.value.push({
+        id: uuid(),
+        regularLink: validateInput(val),
+        shorterLink: parseLink(val),
+        isActive: false,
+      });
+    };
+    return { input, links, shorten };
   },
 });
 </script>
 
 <style scoped lang="scss">
-.isActive {
-  background: hsl(257, 27%, 26%) !important;
-}
 .main-bar {
   width: 90%;
   max-width: 1000px;

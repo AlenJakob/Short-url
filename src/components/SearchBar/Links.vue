@@ -9,7 +9,7 @@
           class="btn btn-copy"
           :class="link.isActive ? 'isActive' : ''"
         >
-          {{ link.isActive ? "Copied" : "Copy" }}
+          {{ link.isActive ? "Copied !" : "Copy" }}
         </button>
       </div>
     </div>
@@ -17,26 +17,18 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from "vue";
-import { uuid, validateInput, parseLink } from "./helpers.js";
+import { defineComponent } from "vue";
 export default defineComponent({
   props: { links: Array },
   setup(props) {
-    const links = ref("links");
-
-    const btnStatus = (id, copied) => {
-      console.log("btnstatus");
-      let copiedLinks = [...links];
+    const btnStatus = (id) => {
+      let copiedLinks = [...props.links];
       copiedLinks.find((listItem) => {
         listItem.id === id
           ? (listItem.isActive = true)
           : (listItem.isActive = false);
       });
     };
-    onMounted(() => {
-      console.log(links);
-      console.log("GG");
-    });
     return { btnStatus };
   },
 });
@@ -94,5 +86,8 @@ export default defineComponent({
 }
 .btn-action {
   font-weight: bold;
+}
+.isActive {
+  background: hsl(257, 27%, 26%) !important;
 }
 </style>

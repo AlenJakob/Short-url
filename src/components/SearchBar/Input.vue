@@ -3,12 +3,12 @@
     <form class="search">
       <input
         class="input"
-        v-model="input"
+        v-model="data.input"
         type="text"
         placeholder="Shorten a link here..."
       />
 
-      <button @click.prevent="shorten(input)" class="btn btn-action">
+      <button @click.prevent="shorten(data.input)" class="btn btn-action">
         Shorten it!
       </button>
     </form>
@@ -19,32 +19,18 @@
 </template>
 
 <script>
-import { ref, onMounted, defineComponent, reactive } from "vue";
-import { uuid, validateInput, parseLink } from "./helpers.js";
+import { defineComponent, reactive } from "vue";
 export default defineComponent({
-  // How to Emit fucntion
-  props: { links: Array },
-  setup(props, { emit }) {
-    const links = ref("links");
-    const input = ref("");
-    const handleClick = (e) => {
-      console.log("from Input Component -", input.value);
-    };
+  props: { shorten: Function },
+  setup() {
+    const data = reactive({
+      input: "",
+    });
 
-    const shorten = () => {
-      console.log(links.value);
-      links.value.push({
-        id: uuid(),
-        regularLink: validateInput(input),
-        shorterLink: input,
-        isActive: false,
-      });
-    };
-    return { handleClick, input, shorten };
+    return { data };
   },
 });
-</script>
-
+</script> b
 <style scoped lang="scss">
 .bar {
   width: 100%;

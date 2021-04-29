@@ -3,7 +3,7 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :shorten="shorten" />
+        <Input :updateShortenList="updateShortenList" :links="links" />
       </div>
       <Links :links="links" :btnStatus="btnStatus" />
       <h2>{{ copied }}</h2>
@@ -11,11 +11,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent } from "vue";
-import { uuid, validateInput, parseLink } from "./helpers.ts";
-import Input from "./Input";
-import Links from "./Links";
+import { uuid, validateInput } from "./helpers";
+import Input from "./Input.vue";
+import Links from "./Links.vue";
 export default defineComponent({
   components: {
     Input,
@@ -31,22 +31,9 @@ export default defineComponent({
         shorterLink: "shorter link 1",
         isActive: false,
       },
-      {
-        id: uuid(),
-        regularLink: "regular link 2",
-        shorterLink: "shorter link 2",
-        isActive: false,
-      },
-      {
-        id: uuid(),
-        regularLink: "regular link 3",
-        shorterLink: "shorter link 3",
-        isActive: false,
-      },
     ]);
 
-    const btnStatus = (id, copied) => {
-      console.log("btnstatus");
+    const btnStatus = (id: string) => {
       let copiedLinks = [...links.value];
       copiedLinks.find((listItem) => {
         listItem.id === id
@@ -55,15 +42,15 @@ export default defineComponent({
       });
     };
 
-    const shorten = (inputValue) => {
+    const updateShortenList = (inputValue: string, shorten: string) => {
       links.value.push({
         id: uuid(),
         regularLink: validateInput(inputValue),
-        shorterLink: parseLink(inputValue),
+        shorterLink: shorten,
         isActive: false,
       });
     };
-    return { input, copied, links, btnStatus, shorten };
+    return { input, copied, links, btnStatus, updateShortenList };
   },
 });
 </script>

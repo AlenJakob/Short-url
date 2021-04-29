@@ -14,7 +14,6 @@ export default defineComponent({
   props: ["links", "btnStatus"],
   components: { Link },
   setup(props) {
-    console.log(props);
     return { props };
   },
 });

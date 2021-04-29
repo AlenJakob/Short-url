@@ -7,7 +7,7 @@
         type="text"
         placeholder="Shorten a link here..."
       />
-      <button @click.prevent="shorten(input)" class="btn btn-action">
+      <button @click.prevent="handleClick" class="btn btn-action">
         Shorten it!
       </button>
     </form>
@@ -18,20 +18,25 @@
 </template>
 
 <script lang="ts">
-import { Ref, ref } from "vue";
-export default {
-  props: {
-    shorten: Function,
-  },
+import { defineComponent, Ref, ref } from "vue";
+export default defineComponent({
+  props: ["updateShortenList", "links"],
 
-  setup(): { handleClick: () => void; input: Ref<string> } {
+  setup(props): { handleClick: () => void; input: Ref<string> } {
     const input = ref("");
     const handleClick = () => {
-      console.log("from Input Component -", input.value);
+      fetch(`https://api.shrtco.de/v2/shorten?url=${input.value}`)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          console.log(res.result.short_link2);
+          props.updateShortenList(input.value, res.result.short_link2);
+        });
     };
+
     return { handleClick, input };
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

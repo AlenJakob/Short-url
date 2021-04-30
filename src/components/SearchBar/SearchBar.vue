@@ -11,9 +11,10 @@
 
 <script lang="ts">
 import { ref, defineComponent } from "vue";
-import { uuid, validateInput } from "./helpers";
+import { uuid } from "./helpers";
 import Input from "./Input.vue";
 import Links from "./Links.vue";
+import { copyUrl } from "./helpers";
 export default defineComponent({
   components: {
     Input,
@@ -31,7 +32,8 @@ export default defineComponent({
       },
     ]);
 
-    const btnStatus = (id: string) => {
+    const btnStatus = (id: string, shortenLink: string) => {
+      copyUrl(shortenLink);
       let copiedLinks = [...links.value];
       copiedLinks.find((listItem) => {
         listItem.id === id
@@ -41,9 +43,9 @@ export default defineComponent({
     };
 
     const updateShortenList = (inputValue: string, shorten: string) => {
-      links.value.push({
+      links.value.unshift({
         id: uuid(),
-        regularLink: validateInput(inputValue),
+        regularLink: inputValue,
         shorterLink: shorten,
         isActive: false,
       });

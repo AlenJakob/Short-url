@@ -8,20 +8,21 @@
   />
   <div class="search-bar">
     <div class="bar">
-      <form class="search">
-        <input
-          class="input"
-          v-model="input"
-          type="text"
-          placeholder="Shorten a link here..."
-        />
-        <button @click.prevent="handleClick" class="btn btn-action">
-          Shorten it!
-        </button>
+      <form class="search" @submit.prevent="handleSubmit">
+        <div class="input-wrapper">
+          <input
+            class="input"
+            v-model="input"
+            type="text"
+            placeholder="Shorten a link here..."
+            required
+          />
+          <span v-if="error" class="txt-warning" for="search">
+            {{ error }}
+          </span>
+        </div>
+        <button class="btn btn-action" type="submit">Shorten it!</button>
       </form>
-      <label class="txt-warning" for="search">
-        <i>Please add a link</i>
-      </label>
     </div>
   </div>
 </template>
@@ -35,39 +36,52 @@ export default defineComponent({
   components: { Loading },
   setup(
     props
-  ): { handleClick: () => void; input: Ref<string>; isLoading: Ref<boolean> } {
+  ): {
+    handleSubmit: () => void;
+    input: Ref<string>;
+    isLoading: Ref<boolean>;
+    error: Ref<string>;
+  } {
     const input = ref("");
     const isLoading = ref(false);
-    const handleClick = () => {
+    const error = ref("");
+
+    const handleSubmit = () => {
       isLoading.value = true;
       fetch(`https://api.shrtco.de/v2/shorten?url=${input.value}`)
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
-          console.log(res.result.short_link2);
+          if (res.error) {
+            error.value = res.error;
+            isLoading.value = false;
+            return;
+          }
           props.updateShortenList(input.value, res.result.short_link2);
           isLoading.value = false;
         })
         .catch((err) => {
           isLoading.value = false;
           console.log(err);
+          error.value = err;
         });
     };
 
-    return { handleClick, input, isLoading };
+    return { handleSubmit, input, isLoading, error };
   },
 });
 </script>
 
 <style scoped lang="scss">
+@import "./src/styles/_variables.scss";
 .search-bar {
   display: flex;
   border-radius: 8px;
-  padding: 1.5em 2em;
+  padding: 1.5em 1em;
   position: relative;
   background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
   background-size: cover;
   color: hsl(257, 27%, 26%);
+
   & ::before {
     border-radius: 8px;
     content: "";
@@ -86,23 +100,21 @@ export default defineComponent({
   display: flex;
   align-self: center;
   flex-direction: column;
-  & .txt-warning {
-    margin-top: 5px;
-    padding-left: 2px;
-    align-self: flex-start;
-    font-size: 12px;
-    color: #be617a;
-  }
+
   & .search {
-    margin-top: 12.5px;
+    /* margin-top: 12.5px; */
+    padding: 10px;
     display: flex;
+    @media (max-width: $desktop) {
+      flex-direction: column;
+    }
 
     & .input {
       color: hsl(255, 11%, 22%);
       font-size: 18px;
       text-indent: 20px;
       padding: 15px 0;
-      flex-grow: 5;
+      width: 95%;
       border: 2px solid transparent;
       &:hover {
         border: 2px solid #de6979;
@@ -117,6 +129,15 @@ export default defineComponent({
     }
   }
 }
+.input-wrapper {
+  position: relative;
+  flex-grow: 5;
+}
+
+.input {
+  position: relative;
+}
+
 .btn,
 .input {
   cursor: pointer;
@@ -124,14 +145,27 @@ export default defineComponent({
   margin: 0 8px;
 }
 .txt-warning {
-  margin-left: 5px;
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  font-size: 12px;
+  text-align: left;
+  color: #be617a;
+  @media (max-width: $desktop) {
+    bottom: -40px;
+    left: 10px;
+  }
 }
 .btn {
   background: hsl(180, 66%, 49%);
   color: #fff;
   border: none;
+  padding: 15px;
   &:hover {
     background: #9be3e2;
+  }
+  @media (max-width: $desktop) {
+    margin-top: 40px;
   }
 }
 </style>

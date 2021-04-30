@@ -11,8 +11,9 @@
 </template>
 
 <script>
+import axios from "axios";
 import { ref, defineComponent, onMounted } from "vue";
-import { uuid, validateInput, parseLink } from "./helpers.js";
+import { uuid, validateInput } from "./helpers.js";
 import Input from "./Input";
 import Links from "./Links";
 export default defineComponent({
@@ -42,20 +43,37 @@ export default defineComponent({
         isActive: false,
       },
     ]);
-    const shorten = (val) => {
-      links.value.push({
-        id: uuid(),
-        regularLink: validateInput(val),
-        shorterLink: parseLink(val),
-        isActive: false,
-      });
+    const shorten = async (val) => {
+      console.log(val);
+      try {
+        const shortUrl = await axios.post(
+          `https://api.shrtco.de/v2/shorten?url=${val}`
+        );
+        console.log(shortUrl);
+        console.log(shortUrl.status);
+        console.log(shortUrl.data);
+        console.log(shortUrl.data.result);
+
+        if (shortUrl.data.ok) {
+          const { share_link, original_link } = shortUrl.data.result;
+          links.value.unshift({
+            id: uuid(),
+            regularLink: validateInput(original_link),
+            shorterLink: share_link,
+            isActive: false,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     };
-    return { input, links, shorten };
+    return { input, links, shorten, axios };
   },
 });
 </script>
 
 <style scoped lang="scss">
+@import "./src/styles/_variables.scss";
 .main-bar {
   width: 90%;
   max-width: 1000px;
@@ -74,14 +92,20 @@ export default defineComponent({
 }
 .search-bar {
   display: flex;
+
+  flex-direction: column;
   border-radius: 8px;
   padding: 1.5em 2em;
   position: relative;
   background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
   background-size: cover;
   color: hsl(257, 27%, 26%);
+  // Responsive
+  @media (max-width: $desktop) {
+    flex-direction: row;
+  }
   & ::before {
-    border-radius: 8px;
+    border-radius: 10px;
     content: "";
     display: flex;
     left: 0px;

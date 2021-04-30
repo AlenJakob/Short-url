@@ -13,6 +13,4 @@ export function validateInput(value) {
         return value;
     }
 }
-export function parseLink(link) {
-    return link.substr(0, 6) + "--test- parse link";
-}
+

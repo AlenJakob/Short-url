@@ -66,6 +66,7 @@ export default defineComponent({
       font-weight: bold;
     }
     & .regular {
+      text-align: left;
       color: hsl(257, 27%, 26%) !important;
     }
   }

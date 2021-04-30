@@ -32,6 +32,7 @@ export default defineComponent({
 });
 </script> b
 <style scoped lang="scss">
+@import "./src/styles/_variables.scss";
 .bar {
   width: 100%;
   display: flex;
@@ -46,9 +47,15 @@ export default defineComponent({
   }
   & .search {
     margin-top: 12.5px;
-    display: flex;
+    display: flex; // Responsive
+    @media (max-width: $desktop) {
+      flex-direction: column;
+    }
 
     & .input {
+      @media (max-width: $desktop) {
+        margin-bottom: 20px;
+      }
       color: hsl(255, 11%, 22%);
       font-size: 18px;
       text-indent: 20px;
@@ -65,6 +72,9 @@ export default defineComponent({
     & .btn-action {
       font-size: 18px;
       flex-grow: 1;
+      @media (max-width: $desktop) {
+        padding: 15px 0;
+      }
     }
   }
 }

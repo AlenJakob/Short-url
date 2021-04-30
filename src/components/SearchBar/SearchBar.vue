@@ -22,10 +22,11 @@ export default defineComponent({
     Links,
   },
   setup() {
-     const uuid = () => {
+    const uuid = () => {
       return Math.random().toString(16).slice(2);
     };
     const input = ref("");
+    const isLoader = ref("false");
     const links = ref([
       {
         id: uuid(),
@@ -49,7 +50,7 @@ export default defineComponent({
     const shorten = async (val) => {
       if (val.length > 5) {
         try {
-          const shortUrl = await axios.post(
+          const shortUrl = await axios.get(
             `https://api.shrtco.de/v2/shorten?url=${val}`
           );
 
@@ -71,14 +72,15 @@ export default defineComponent({
         return;
       }
     };
-   
-    return { input, links, shorten, axios, uuid };
+    onMounted(() => {
+      console.log(isLoader.value);
+    });
+    return { input, links, shorten, axios, isLoader };
   },
 });
 </script>
 
 <style scoped lang="scss">
-@import "./src/styles/_variables.scss";
 .main-bar {
   width: 90%;
   max-width: 1000px;

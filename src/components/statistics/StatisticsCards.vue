@@ -48,7 +48,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "./src/styles/_variables.scss";
 .cards-wrapper {
   width: 100%;
   height: auto;

@@ -22,7 +22,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "./src/styles/_variables.scss";
 .wrapper {
   display: flex;
   flex-direction: column;

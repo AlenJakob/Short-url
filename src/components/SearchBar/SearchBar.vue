@@ -13,7 +13,7 @@
 <script>
 import axios from "axios";
 import { ref, defineComponent, onMounted } from "vue";
-import { uuid, validateInput } from "./helpers.js";
+import { copyUrl } from "./helpers.ts";
 import Input from "./Input";
 import Links from "./Links";
 export default defineComponent({
@@ -22,6 +22,9 @@ export default defineComponent({
     Links,
   },
   setup() {
+     const uuid = () => {
+      return Math.random().toString(16).slice(2);
+    };
     const input = ref("");
     const links = ref([
       {
@@ -52,10 +55,10 @@ export default defineComponent({
 
           console.log(shortUrl);
           if (shortUrl.data.ok) {
-            const { share_link, original_link } = shortUrl.data.result;
+            const { code, share_link, original_link } = shortUrl.data.result;
             links.value.unshift({
-              id: uuid(),
-              regularLink: validateInput(original_link),
+              id: code,
+              regularLink: original_link,
               shorterLink: share_link,
               isActive: false,
             });
@@ -68,7 +71,8 @@ export default defineComponent({
         return;
       }
     };
-    return { input, links, shorten, axios };
+   
+    return { input, links, shorten, axios, uuid };
   },
 });
 </script>

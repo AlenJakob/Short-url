@@ -17,11 +17,13 @@
 </template>
 
 <script>
+// https://vuejsexamples.com/a-simple-vue2-binding-to-clipboard-js/   --< for Clipboard
 import { defineComponent } from "vue";
 export default defineComponent({
   props: { links: Array },
   setup(props) {
-    const btnStatus = (id) => {
+    const btnStatus = (id,shortUrl) => {
+      console.log(shortUrl)
       let copiedLinks = [...props.links];
       copiedLinks.find((listItem) => {
         listItem.id === id

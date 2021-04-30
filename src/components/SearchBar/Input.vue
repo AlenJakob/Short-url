@@ -1,6 +1,6 @@
 <template>
   <div class="bar">
-    <form class="search">
+    <form class="search" @submit.prevent="shorten(data.input)">
       <input
         class="input"
         v-model="data.input"
@@ -8,9 +8,7 @@
         placeholder="Shorten a link here..."
       />
 
-      <button @click.prevent="shorten(data.input)" class="btn btn-action">
-        Shorten it!
-      </button>
+      <button class="btn btn-action">Shorten it!</button>
     </form>
     <label class="txt-warning" for="search">
       <i>Please add a link</i>

@@ -44,27 +44,28 @@ export default defineComponent({
       },
     ]);
     const shorten = async (val) => {
-      console.log(val);
-      try {
-        const shortUrl = await axios.post(
-          `https://api.shrtco.de/v2/shorten?url=${val}`
-        );
-        console.log(shortUrl);
-        console.log(shortUrl.status);
-        console.log(shortUrl.data);
-        console.log(shortUrl.data.result);
+      if (val.length > 5) {
+        try {
+          const shortUrl = await axios.post(
+            `https://api.shrtco.de/v2/shorten?url=${val}`
+          );
 
-        if (shortUrl.data.ok) {
-          const { share_link, original_link } = shortUrl.data.result;
-          links.value.unshift({
-            id: uuid(),
-            regularLink: validateInput(original_link),
-            shorterLink: share_link,
-            isActive: false,
-          });
+          console.log(shortUrl);
+          if (shortUrl.data.ok) {
+            const { share_link, original_link } = shortUrl.data.result;
+            links.value.unshift({
+              id: uuid(),
+              regularLink: validateInput(original_link),
+              shorterLink: share_link,
+              isActive: false,
+            });
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
+      } else {
+        console.log("the url is to short");
+        return;
       }
     };
     return { input, links, shorten, axios };

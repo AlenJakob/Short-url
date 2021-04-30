@@ -30,7 +30,8 @@ export default defineComponent({
     return { data };
   },
 });
-</script> b
+</script>
+b
 <style scoped lang="scss">
 @import "./src/styles/_variables.scss";
 .bar {
@@ -45,47 +46,37 @@ export default defineComponent({
     font-size: 12px;
     color: #be617a;
   }
-  & .search {
-    margin-top: 12.5px;
-    display: flex; // Responsive
+}
+.search {
+  margin-top: 12.5px;
+  display: flex; // Responsive
+  @media (max-width: $desktop) {
+    flex-direction: column;
+  }
+  & .input {
     @media (max-width: $desktop) {
-      flex-direction: column;
+      margin-bottom: 20px;
     }
-
-    & .input {
-      @media (max-width: $desktop) {
-        margin-bottom: 20px;
-      }
-      color: hsl(255, 11%, 22%);
-      font-size: 18px;
-      text-indent: 20px;
-      padding: 15px 0;
-      flex-grow: 5;
-      border: 2px solid transparent;
-      &:hover {
-        border: 2px solid #de6979;
-      }
-      &::placeholder {
-        color: hsla(0, 87%, 67%, 0.384);
-      }
+    color: hsl(255, 11%, 22%);
+    font-size: 18px;
+    text-indent: 20px;
+    padding: 15px 0;
+    flex-grow: 5;
+    border: 2px solid transparent;
+    &:hover {
+      border: 2px solid #de6979;
     }
-    & .btn-action {
-      font-size: 18px;
-      flex-grow: 1;
-      @media (max-width: $desktop) {
-        padding: 15px 0;
-      }
+    &::placeholder {
+      color: hsla(0, 87%, 67%, 0.384);
     }
   }
-}
-.btn,
-.input {
-  cursor: pointer;
-  border-radius: 8px;
-  margin: 0 8px;
-}
-.txt-warning {
-  margin-left: 5px;
+  & .btn-action {
+    font-size: 18px;
+    flex-grow: 1;
+    @media (max-width: $desktop) {
+      padding: 15px 0;
+    }
+  }
 }
 .btn {
   background: hsl(180, 66%, 49%);
@@ -94,5 +85,8 @@ export default defineComponent({
   &:hover {
     background: #9be3e2;
   }
+}
+.txt-warning {
+  margin-left: 5px;
 }
 </style>

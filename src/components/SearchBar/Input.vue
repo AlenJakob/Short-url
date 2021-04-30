@@ -86,7 +86,4 @@ b
     background: #9be3e2;
   }
 }
-.txt-warning {
-  margin-left: 5px;
-}
 </style>

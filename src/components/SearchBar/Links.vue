@@ -51,24 +51,24 @@ export default defineComponent({
       padding: 10px 20px;
     }
   }
-  .link {
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    margin-bottom: 15px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    color: hsl(180, 66%, 49%);
-    & .btn {
-      font-weight: bold;
-    }
-    & .regular {
-      text-align: left;
-      color: hsl(257, 27%, 26%) !important;
-    }
+}
+.link {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: hsl(180, 66%, 49%);
+  & .btn {
+    font-weight: bold;
+  }
+  & .regular {
+    text-align: left;
+    color: hsl(257, 27%, 26%) !important;
   }
 }
 .btn,

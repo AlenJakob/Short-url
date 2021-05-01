@@ -5,14 +5,14 @@
         <img class="burger-icon" src="./assets/hamburger-menu-icon.svg" alt="burger-icon" @click="OpenNav = !OpenNav"/>
       </div>
     <div class="content" :class="{'open':OpenNav}">
-       <MobileNav />
+       <Navigation />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navigation from "./components/Navigation.vue";
-import MobileNav from "./components/MobileNav.vue";
+//import MobileNav from "./components/MobileNav.vue";
 
 
 export default defineComponent({
@@ -26,11 +26,11 @@ export default defineComponent({
   methods:{
     MobileViev(): void{
 //      console.log(window.innerWidth);
-      this.Mobile = window.innerWidth <= 910;
+      this.Mobile = window.innerWidth <= 920;
     }
   },
   components: {
-    MobileNav,
+   // MobileNav,
     Navigation,
   },
   created(): void{
@@ -55,10 +55,16 @@ export default defineComponent({
   margin-left: 15px;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;900&display=swap');
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: hsl(0, 0%, 75%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  margin-top: 20px;
+  text-align: left;
 }
 .open{
       display: none;

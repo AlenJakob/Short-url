@@ -1,20 +1,17 @@
 <template>
-
-    <SearchBar />
-    <Statistics />
-
+  <Hero />
+  <SearchBar />
+  <Statistics />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Hero from "./components/hero/Hero.vue";
 import SearchBar from "./components/SearchBar/SearchBar.vue";
 import Statistics from "./components/statistics/Statistics.vue";
 
 export default defineComponent({
-  components: {
-    SearchBar,
-    Statistics,
-  },
+  components: { Hero, SearchBar, Statistics },
 });
 </script>
 
@@ -29,7 +26,7 @@ export default defineComponent({
   font-size: 18px;
   text-align: center;
   color: hsl(257, 27%, 26%);
-  
+
   max-width: 1440px;
   font-family: "Poppins", sans-serif;
 }

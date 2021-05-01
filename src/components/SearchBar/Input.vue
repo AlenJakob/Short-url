@@ -74,8 +74,7 @@ b
   }
 }
 .search {
-  display: flex; // Responsive
-
+  display: flex;
   & .input {
     text-overflow: ellipsis;
     text-indent: 20px;

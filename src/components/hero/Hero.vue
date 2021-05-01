@@ -8,7 +8,7 @@
       </p>
       <button class="btn">Get Started</button>
     </div>
-    <div class="img">asfa</div>
+    <div class="img"></div>
   </div>
 </template>
 
@@ -18,6 +18,10 @@ export default {};
 
 <style scoped lang="scss">
 .hero {
+  margin: 5em 0;
+  width: 100%;
+  padding-bottom: 2em;
+  background: white;
   display: flex;
 }
 .content {
@@ -25,9 +29,10 @@ export default {};
 }
 .img {
   //   background: url("@/images/illustration-working.svg");
-  height: 100vh;
-  width:50%;
+  height: 400px;
   background: url("../../assets/images/illustration-working.svg") no-repeat;
+  background-size: cover;
+   flex-basis: 100%;
   flex-grow: 1;
 }
 </style>

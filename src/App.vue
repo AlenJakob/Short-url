@@ -18,8 +18,11 @@ export default defineComponent({
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
 @import "./src/styles/_variables.scss";
+body{
+  margin:0;
+}
 #app {
-  margin: 0 auto;
+  margin: 0  !important;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,14 +1,16 @@
 <template>
-  <div class="hero">
-    <div class="content">
-      <h1>More than just shorter links</h1>
-      <p>
-        Build your brand's recognition and get detailed insights on how your
-        links are performing
-      </p>
-      <button class="btn">Get Started</button>
-    </div>
+  <div class="container">
     <div class="img"></div>
+    <div class="hero">
+      <div class="content">
+        <h1>More than just shorter links</h1>
+        <p>
+          Build your brand's recognition and get detailed insights on how your
+          links are performing
+        </p>
+        <button class="btn btn-hero">Get Started</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,22 +19,36 @@ export default {};
 </script>
 
 <style scoped lang="scss">
-.hero {
+.container {
+  position: relative;
   margin: 5em 0;
   width: 100%;
-  padding-bottom: 2em;
-  background: white;
+  background: #fff;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 8em;
+}
+.hero {
+  width: 90%;
+  max-width: 1000px;
   display: flex;
 }
 .content {
-  flex-grow: 1;
+  max-width: 600px;
+  text-align: left;
 }
 .img {
-  //   background: url("@/images/illustration-working.svg");
-  height: 400px;
+  position: absolute;
+  right: 0;
+  width: 500px;
+  height: 500px;
   background: url("../../assets/images/illustration-working.svg") no-repeat;
   background-size: cover;
-   flex-basis: 100%;
-  flex-grow: 1;
+}
+.btn-hero {
+  padding: 1em 3em;
+  border-radius: 50px;
+  font-weight: bold;
 }
 </style>

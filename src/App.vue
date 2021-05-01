@@ -18,11 +18,13 @@ export default defineComponent({
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
 @import "./src/styles/_variables.scss";
-body{
-  margin:0;
+body {
+  margin: 0;
 }
 #app {
-  margin: 0  !important;
+  // margin: 0  auto;
+  width: 100%;
+  background: #eff0f5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,7 +32,17 @@ body{
   text-align: center;
   color: hsl(257, 27%, 26%);
 
-  max-width: 1440px;
   font-family: "Poppins", sans-serif;
+}
+.btn {
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 0 8px;
+  background: hsl(180, 66%, 49%);
+  color: #fff;
+  border: none;
+  &:hover {
+    background: #9be3e2;
+  }
 }
 </style>

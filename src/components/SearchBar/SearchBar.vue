@@ -37,7 +37,8 @@ export default defineComponent({
     const links = ref([
       {
         id: 1,
-        regularLink: "regular link 1",
+        regularLink:
+          "https://css-tricks.com/full-width-containers-limited-width-parents/",
         shorterLink: "shorter link 1",
         isActive: false,
       },
@@ -89,20 +90,21 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.search-container {
+  margin-top: -9em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
 .main-bar {
   width: 90%;
   max-width: 1000px;
 }
-.search-container {
-  margin-top: 65px;
-  display: flex;
-  justify-content: center;
-}
 .search-bg {
   position: absolute;
-  top: 155px;
+  bottom: 0;
   min-width: 100%;
-  min-height: 100vh;
+  min-height: 500px;
   z-index: -1;
   background: hsl(230, 25%, 95%);
 }
@@ -113,6 +115,7 @@ export default defineComponent({
   padding: 2.5em;
   position: relative;
   background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
+  fill: red;
   background-size: cover;
   color: hsl(257, 27%, 26%);
   // Responsive
@@ -135,6 +138,7 @@ export default defineComponent({
   .search-bar {
     background: url("../../assets/images/bg-shorten-mobile.svg") no-repeat right
       top;
+    background-size: cover;
   }
 }
 </style>

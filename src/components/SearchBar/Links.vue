@@ -75,7 +75,6 @@ export default defineComponent({
     background: #fff;
     margin-bottom: 15px;
     padding: 10px 20px;
-    border-radius: 6px;
     color: hsl(180, 66%, 49%);
     @media (max-width: $desktop) {
       flex-direction: column;
@@ -109,24 +108,14 @@ export default defineComponent({
     & .regular-btn {
       margin-right: 40px;
       white-space: nowrap;
-      max-width: 600px;
+      max-width: 300px;
       text-align: left;
       color: hsl(257, 27%, 26%) !important;
     }
   }
 }
 
-.btn {
-  cursor: pointer;
-  border-radius: 6px;
-  margin: 0 8px;
-  background: hsl(180, 66%, 49%);
-  color: #fff;
-  border: none;
-  &:hover {
-    background: #9be3e2;
-  }
-}
+
 
 .isActive {
   background: hsl(257, 27%, 26%) !important;

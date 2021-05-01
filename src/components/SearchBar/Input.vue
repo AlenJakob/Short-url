@@ -1,6 +1,6 @@
 <template>
   <form class="search" @submit.prevent="shorten(data.input)">
-    <h1>{{}}</h1>
+  
     <div class="search-input">
       <input
         id="search"

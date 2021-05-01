@@ -1,9 +1,16 @@
 <template>
-  <div class="search">
+  <div class="search-container">
+    <loading
+      v-model:active="isLoading"
+      :can-cancel="false"
+      :opacity="0.5"
+      color="hsl(257, 27%, 26%)"
+      :lock-scroll="true"
+    />
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :shorten="shorten" />
+        <Input :shorten="shorten" :errHandle="errHandle" />
       </div>
       <Links :links="links" />
     </div>
@@ -11,50 +18,51 @@
 </template>
 
 <script>
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import axios from "axios";
-import { ref, defineComponent, onMounted } from "vue";
-import { copyUrl } from "./helpers.ts";
+import { ref, defineComponent, onMounted, reactive } from "vue";
 import Input from "./Input";
 import Links from "./Links";
 export default defineComponent({
   components: {
     Input,
     Links,
+    Loading,
   },
   setup() {
-    const uuid = () => {
-      return Math.random().toString(16).slice(2);
-    };
+    let errHandle = ref(false);
     const input = ref("");
-    const isLoader = ref("false");
+    const isLoading = ref(false);
     const links = ref([
       {
-        id: uuid(),
+        id: 1,
         regularLink: "regular link 1",
         shorterLink: "shorter link 1",
         isActive: false,
       },
       {
-        id: uuid(),
+        id: 2,
         regularLink: "regular link 2",
         shorterLink: "shorter link 2",
         isActive: false,
       },
       {
-        id: uuid(),
+        id: 3,
         regularLink: "regular link 3",
         shorterLink: "shorter link 3",
         isActive: false,
       },
     ]);
-    const shorten = async (val) => {
+    const shorten = async (val, err) => {
+      console.log(errHandle);
       if (val.length > 5) {
+        errHandle.value = false;
         try {
+          isLoading.value = true;
           const shortUrl = await axios.get(
             `https://api.shrtco.de/v2/shorten?url=${val}`
           );
-
-          console.log(shortUrl);
           if (shortUrl.data.ok) {
             const { code, share_link, original_link } = shortUrl.data.result;
             links.value.unshift({
@@ -63,19 +71,19 @@ export default defineComponent({
               shorterLink: share_link,
               isActive: false,
             });
+            isLoading.value = false;
           }
         } catch (err) {
-          console.log(err);
+          isLoading.value = false;
         }
       } else {
+        errHandle.value = true;
         console.log("the url is to short");
         return;
       }
     };
-    onMounted(() => {
-      console.log(isLoader.value);
-    });
-    return { input, links, shorten, axios, isLoader };
+
+    return { input, links, shorten, axios, isLoading, errHandle };
   },
 });
 </script>
@@ -85,13 +93,14 @@ export default defineComponent({
   width: 90%;
   max-width: 1000px;
 }
-.search {
+.search-container {
+  margin-top: 65px;
   display: flex;
   justify-content: center;
 }
 .search-bg {
   position: absolute;
-  top: 105px;
+  top: 155px;
   min-width: 100%;
   min-height: 100vh;
   z-index: -1;
@@ -99,18 +108,15 @@ export default defineComponent({
 }
 .search-bar {
   display: flex;
-
   flex-direction: column;
-  border-radius: 8px;
-  padding: 1.5em 2em;
+  border-radius: 6px;
+  padding: 2.5em;
   position: relative;
   background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
   background-size: cover;
   color: hsl(257, 27%, 26%);
   // Responsive
-  @media (max-width: $desktop) {
-    flex-direction: row;
-  }
+
   & ::before {
     border-radius: 10px;
     content: "";
@@ -122,6 +128,13 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     z-index: -1;
+  }
+}
+
+@media (max-width: $desktop) {
+  .search-bar {
+    background: url("../../assets/images/bg-shorten-mobile.svg") no-repeat right
+      top;
   }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+
     <SearchBar />
     <Statistics />
-  </div>
+
 </template>
 
 <script lang="ts">
@@ -29,7 +29,7 @@ export default defineComponent({
   font-size: 18px;
   text-align: center;
   color: hsl(257, 27%, 26%);
-  margin-top: 60px;
+  
   max-width: 1440px;
   font-family: "Poppins", sans-serif;
 }

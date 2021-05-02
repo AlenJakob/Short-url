@@ -8,7 +8,7 @@
       </ul>
       <hr>
       <div class="btn">
-          <a class="login" href="/">Login</a>
+          <a class="login" href="/">Login</a><br/>
         <a class="button" href="/"> Sign Up </a>
       </div>
 </div>
@@ -90,6 +90,9 @@
       @include flex();
       flex-wrap:wrap;
     }
+    br{
+      display: none;
+    }
   }
   @media only screen and (max-width: 920px){
 
@@ -105,18 +108,19 @@
       -webkit-box-shadow: 23px -8px 0px -12px rgba(0,0,0,0.16);
       box-shadow: 23px -8px 0px -12px rgba(0,0,0,0.16);
     .btn{
-      button:hover{
+      .button:hover{
           background-color: hsl(172, 75%, 73%);
         }
-      button{
-        margin-top:10px;
+      .button{
+        margin-top:20px;
+        text-align: center;
         margin-left:0;
         font-family: Poppins;
         justify-content: center;
         font-size: 16px;
         color: #fff;
         height: 35px;
-        width: 250px;
+        width: 250px ;
         border: 0;
         border-radius: 25px;
         background-color: hsl(180, 66%, 49%);

@@ -99,7 +99,7 @@ export default {};
 }
 @media (max-width: $desktop) {
   .container {
-    margin: 8em auto;
+ 
   }
   .img {
     box-sizing: border-box;

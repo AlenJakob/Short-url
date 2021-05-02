@@ -8,10 +8,8 @@
       </ul>
       <hr>
       <div class="btn">
-        <ul>
-          <li><a href="/">Login</a></li>
-        </ul>
-        <button> Sign Up </button>
+          <a class="login" href="/">Login</a>
+        <button href="/"> Sign Up </button>
       </div>
 </div>
 </template>
@@ -39,7 +37,7 @@
           background-color: hsl(172, 75%, 73%);
         }
       button{
-        margin-top:10px;
+        margin-top:15px;
         font-family: Poppins;
         justify-content: center;
         font-size: 16px;
@@ -55,6 +53,15 @@
         cursor: pointer;
       }
     }
+    .login{
+      vertical-align: middle;
+      padding-top:20px;
+    }
+    a{
+        text-decoration: none;
+        color: hsl(0, 0%, 75%);
+      }
+    a:hover{color:  hsl(0, 0%, 9%);}
     ul {
       list-style-type: none;
       li{

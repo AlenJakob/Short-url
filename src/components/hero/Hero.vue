@@ -53,10 +53,9 @@ export default {};
 .img {
   position: absolute;
   right: 0;
-  width: 670px;
+  width: 570px;
   height: 460px;
   background: url("../../assets/images/illustration-working.svg") no-repeat;
-
   background-size: cover;
 }
 .btn-hero {
@@ -66,5 +65,47 @@ export default {};
   font-weight: bold;
   font-size: 18px;
   letter-spacing: 1px;
+}
+// RWD
+
+@media (max-width: 1280px) {
+  .img {
+    width: 470px;
+    height: 360px;
+  }
+}
+@media (max-width: 1140px) {
+  .container {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+  .img {
+    background-position-x: 120px;
+    width: 100%;
+    height: 633px;
+    position: unset;
+    background-size: contain;
+  }
+  .hero {
+    justify-content: center;
+    .content {
+      text-align: center;
+      .title {
+        margin-bottom: 0.5em;
+      }
+    }
+  }
+}
+@media (max-width: $desktop) {
+  .container {
+    margin: 8em auto;
+  }
+  .img {
+    box-sizing: border-box;
+    width: 100%;
+    height: 350px;
+    background-size: contain;
+  }
 }
 </style>

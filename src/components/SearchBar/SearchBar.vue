@@ -1,116 +1,127 @@
 <template>
-  <div class="section__search">
+  <div class="search-container">
+    <loading
+      v-model:active="isLoading"
+      :can-cancel="false"
+      :opacity="0.5"
+      color="hsl(257, 27%, 26%)"
+      :lock-scroll="true"
+    />
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <!-- v-model on custom component  -->
-        <Input :shorten="shorten" />
+        <Input :shorten="shorten" :errHandle="errHandle" />
       </div>
-      <div class="links">
-        <div class="link" v-for="link in links" :key="link.id">
-          <div class="regular">{{ link.regularLink }}</div>
-          <div class="action">
-            <div class="shorter">{{ link.shorterLink }}</div>
-            <button
-              @click="btnStatus(link.id, link.shorterLink)"
-              class="btn btn-copy"
-              :class="link.isActive ? 'isActive' : ''"
-            >
-              {{ link.isActive ? "Copied" : "Copy" }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <h2>{{ copied }}</h2>
+      <Links :links="links" />
     </div>
   </div>
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
-import { uuid, validateInput, parseLink } from "./helpers.js";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import axios from "axios";
+import { ref, defineComponent, onMounted, reactive } from "vue";
 import Input from "./Input";
+import Links from "./Links";
 export default defineComponent({
   components: {
     Input,
+    Links,
+    Loading,
   },
   setup() {
+    let errHandle = ref(false);
     const input = ref("");
-    const copied = ref("");
+    const isLoading = ref(false);
     const links = ref([
       {
-        id: uuid(),
-        regularLink: "regular link 1",
+        id: 1,
+        regularLink:
+          "https://css-tricks.com/full-width-containers-limited-width-parents/",
         shorterLink: "shorter link 1",
         isActive: false,
       },
       {
-        id: uuid(),
+        id: 2,
         regularLink: "regular link 2",
         shorterLink: "shorter link 2",
         isActive: false,
       },
       {
-        id: uuid(),
+        id: 3,
         regularLink: "regular link 3",
         shorterLink: "shorter link 3",
         isActive: false,
       },
     ]);
-
-    const btnStatus = (id, copied) => {
-      console.log("btnstatus");
-      let copiedLinks = [...links.value];
-      copiedLinks.find((listItem) => {
-        listItem.id === id
-          ? (listItem.isActive = true)
-          : (listItem.isActive = false);
-      });
+    const shorten = async (val, err) => {
+      console.log(errHandle);
+      if (val.length > 5) {
+        errHandle.value = false;
+        try {
+          isLoading.value = true;
+          const shortUrl = await axios.get(
+            `https://api.shrtco.de/v2/shorten?url=${val}`
+          );
+          if (shortUrl.data.ok) {
+            const { code, share_link, original_link } = shortUrl.data.result;
+            links.value.unshift({
+              id: code,
+              regularLink: original_link,
+              shorterLink: share_link,
+              isActive: false,
+            });
+            isLoading.value = false;
+          }
+        } catch (err) {
+          isLoading.value = false;
+        }
+      } else {
+        errHandle.value = true;
+        console.log("the url is to short");
+        return;
+      }
     };
 
-    const shorten = (inputValue) => {
-      links.value.push({
-        id: uuid(),
-        regularLink: validateInput(inputValue),
-        shorterLink: parseLink(inputValue),
-        isActive: false,
-      });
-    };
-    return { input, copied, links, btnStatus, shorten };
+    return { input, links, shorten, axios, isLoading, errHandle };
   },
 });
 </script>
 
 <style scoped lang="scss">
-.isActive {
-  background: hsl(257, 27%, 26%) !important;
+.search-container {
+  margin-top: -9em;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 .main-bar {
   width: 90%;
   max-width: 1000px;
 }
-.section__search {
-  display: flex;
-  justify-content: center;
-}
 .search-bg {
   position: absolute;
-  top: 105px;
+  bottom: 0;
   min-width: 100%;
-  min-height: 100vh;
+  min-height: 500px;
   z-index: -1;
   background: hsl(230, 25%, 95%);
 }
 .search-bar {
   display: flex;
-  border-radius: 8px;
-  padding: 1.5em 2em;
+  flex-direction: column;
+  border-radius: 6px;
+  padding: 2.5em;
   position: relative;
   background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
+  fill: red;
   background-size: cover;
   color: hsl(257, 27%, 26%);
+  // Responsive
+
   & ::before {
-    border-radius: 8px;
+    border-radius: 10px;
     content: "";
     display: flex;
     left: 0px;
@@ -123,56 +134,11 @@ export default defineComponent({
   }
 }
 
-.btn-action {
-  font-weight: bold;
-}
-.links {
-  margin: 15px 0;
-  font-size: 18px;
-  display: flex;
-  flex-direction: column;
-
-  & .action {
-    display: flex;
-    align-items: center;
-    & .shorter {
-      margin-right: 10px;
-    }
-    & .btn-copy {
-      padding: 10px 20px;
-    }
-  }
-  .link {
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    margin-bottom: 15px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    color: hsl(180, 66%, 49%);
-    & .btn {
-      font-weight: bold;
-    }
-    & .regular {
-      color: hsl(257, 27%, 26%) !important;
-    }
-  }
-}
-.btn,
-.input {
-  cursor: pointer;
-  border-radius: 8px;
-  margin: 0 8px;
-}
-.btn {
-  background: hsl(180, 66%, 49%);
-  color: #fff;
-  border: none;
-  &:hover {
-    background: #9be3e2;
+@media (max-width: $desktop) {
+  .search-bar {
+    background: url("../../assets/images/bg-shorten-mobile.svg") no-repeat right
+      top;
+    background-size: cover;
   }
 }
 </style>

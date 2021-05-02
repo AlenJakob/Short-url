@@ -30,7 +30,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "./src/styles/_variables.scss";
 .card {
   display: flex;
   flex-direction: column;

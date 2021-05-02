@@ -9,7 +9,7 @@
     <hr />
     <div class="btns">
       <a class="login" href="/">Login</a><br />
-      <a class="button" href="/"> Sign Up </a>
+      <a class="signin" href="/"> Sign Up </a>
     </div>
   </div>
 </template>
@@ -30,27 +30,26 @@ export default {};
   flex-direction: row;
 }
 .nav {
+  background: #fff;
   padding: 30px 100px;
   display: flex;
   align-items: center;
-  img {
-    // padding-top: 15px;
-  }
+  flex-direction: column;
+
   .btns {
     display: flex;
     align-items: center;
     margin: 0px 0px 0px auto;
-    .button:hover {
+    .buttsigninon:hover {
       background-color: hsl(172, 75%, 73%);
     }
-    .button {
-      vertical-align: middle;
-      text-align: center;
-      font-family: Poppins;
+    .signin {
+      display: flex;
+      align-items: center;
       justify-content: center;
+      font-family: Poppins;
       font-size: 16px;
       margin-left: 15px;
-      padding-top: 6px;
       color: #fff;
       height: 35px;
       width: 100px;
@@ -102,10 +101,10 @@ export default {};
     display: none;
   }
 }
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: $desktop) {
   .nav {
     img {
-      display: none !important;
+      display: none;
     }
     text-align: center;
     background-color: hsl(257, 27%, 26%);
@@ -115,14 +114,13 @@ export default {};
     -webkit-box-shadow: 23px -8px 0px -12px rgba(0, 0, 0, 0.16);
     box-shadow: 23px -8px 0px -12px rgba(0, 0, 0, 0.16);
     .btns {
-      .button:hover {
+      .signin:hover {
         background-color: hsl(172, 75%, 73%);
       }
-      .button {
-        text-align: center;
-        margin-left: 0;
+      .signin {
         font-family: Poppins;
-        justify-content: center;
+        display: flex;
+        align-items: center;
         font-size: 16px;
         color: #fff;
         width: 250px;

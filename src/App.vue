@@ -20,7 +20,9 @@
       <Navigation />
     </div>
   </div>
+
   <div class="main">
+    <Hero />
     <SearchBar />
     <Statistics />
     <Boost />
@@ -31,6 +33,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navigation from "./components/Navigation.vue";
+import Hero from "./components/hero/Hero.vue";
 import SearchBar from "./components/SearchBar/SearchBar.vue";
 import Statistics from "./components/statistics/Statistics.vue";
 import Boost from "./components/boost/Boost.vue";
@@ -39,6 +42,7 @@ import Footer from "./components/footer/Footer.vue";
 export default defineComponent({
   components: {
     Navigation,
+    Hero,
     SearchBar,
     Statistics,
     Boost,
@@ -88,8 +92,7 @@ body {
 }
 
 .main {
-  max-width: 1440px;
-  margin: 0 auto;
+  display: block;
 }
 
 body {

@@ -21,7 +21,7 @@ export default {};
 <style scoped lang="scss">
 .container {
   position: relative;
-  margin: 5em 0;
+  padding: 5em 0;
   width: 100%;
   background: #fff;
   height: 500px;

@@ -91,7 +91,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .search-container {
-  margin-top: -9em;
+  margin-top: -4em;
   position: relative;
   display: flex;
   justify-content: center;

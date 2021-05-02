@@ -3,8 +3,8 @@
     <div class="img"></div>
     <div class="hero">
       <div class="content">
-        <h1>More than just shorter links</h1>
-        <p>
+        <h1 class="title">More than just shorter links</h1>
+        <p class="article">
           Build your brand's recognition and get detailed insights on how your
           links are performing
         </p>
@@ -35,20 +35,36 @@ export default {};
   display: flex;
 }
 .content {
+  padding-top: 2em;
   max-width: 600px;
   text-align: left;
+  color: #34313a;
+  & .title {
+    margin-bottom: unset;
+    font-size: 3em;
+    line-height: 1.1em;
+  }
+  & .article {
+    margin-top: 0.2em;
+    font-size: 1.2em;
+    color: #9e9aa7;
+  }
 }
 .img {
   position: absolute;
   right: 0;
-  width: 500px;
-  height: 500px;
+  width: 670px;
+  height: 460px;
   background: url("../../assets/images/illustration-working.svg") no-repeat;
+
   background-size: cover;
 }
 .btn-hero {
-  padding: 1em 3em;
-  border-radius: 50px;
+  margin-top: 1em;
+  padding: 1em 2.3em;
+  border-radius: 30px;
   font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1px;
 }
 </style>

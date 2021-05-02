@@ -9,7 +9,7 @@
       <hr>
       <div class="btn">
           <a class="login" href="/">Login</a>
-        <button href="/"> Sign Up </button>
+        <a class="button" href="/"> Sign Up </a>
       </div>
 </div>
 </template>
@@ -33,17 +33,19 @@
     }
     .btn{
       margin: 0px 0px 0px auto;
-      button:hover{
+      .button:hover{
           background-color: hsl(172, 75%, 73%);
         }
-      button{
+      .button{
         margin-top:15px;
+        vertical-align: middle;
+        text-align: center;
         font-family: Poppins;
         justify-content: center;
         font-size: 16px;
         margin-left: 15px;
+        padding-top: 6px;
         color: #fff;
-        padding: 0px;
         height: 35px;
         width: 100px;
         border: 0;

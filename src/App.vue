@@ -2,6 +2,7 @@
   <Hero />
   <SearchBar />
   <Statistics />
+  <Boost />
 </template>
 
 <script lang="ts">
@@ -9,9 +10,10 @@ import { defineComponent } from "vue";
 import Hero from "./components/hero/Hero.vue";
 import SearchBar from "./components/SearchBar/SearchBar.vue";
 import Statistics from "./components/statistics/Statistics.vue";
+import Boost from "./components/boost/Boost.vue";
 
 export default defineComponent({
-  components: { Hero, SearchBar, Statistics },
+  components: { Hero, SearchBar, Statistics, Boost },
 });
 </script>
 

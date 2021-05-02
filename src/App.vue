@@ -1,24 +1,66 @@
 <template>
-  <div id="app">
-    <div class="main">
-      <SearchBar />
-      <Statistics />
+  <div>
+    <Navigation v-if="!Mobile" />
+    <div class="Burger-menu" v-if="Mobile">
+      <img
+        alt="Site logo"
+        src="./assets/logo.svg"
+        width="121"
+        height="33"
+        class="site-logo"
+      />
+      <img
+        class="burger-icon"
+        src="./assets/hamburger-menu-icon.svg"
+        alt="burger-icon"
+        @click="OpenNav = !OpenNav"
+      />
     </div>
-    <Footer />
+    <div class="content" :class="{ open: OpenNav }">
+      <Navigation />
+    </div>
   </div>
+  <div class="main">
+    <SearchBar />
+    <Statistics />
+  </div>
+  <Footer />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
+import Navigation from "./components/Navigation.vue";
 import SearchBar from "./components/SearchBar/SearchBar.vue";
 import Statistics from "./components/statistics/Statistics.vue";
-import Footer from "./components/footer/Footer";
+import Footer from "./components/footer/Footer.vue";
 
 export default defineComponent({
   components: {
+    Navigation,
     SearchBar,
     Statistics,
     Footer,
+  },
+
+  data: (): { Mobile: boolean; OpenNav: boolean } => {
+    return {
+      Mobile: true,
+      OpenNav: true,
+    };
+  },
+  methods: {
+    MobileViev(): void {
+      //      console.log(window.innerWidth);
+      this.Mobile = window.innerWidth <= 920;
+    },
+  },
+
+  created(): void {
+    window.addEventListener("resize", this.MobileViev);
+    this.MobileViev();
+    window.onresize = function () {
+      location.reload();
+    };
   },
 });
 </script>
@@ -34,7 +76,6 @@ export default defineComponent({
   font-size: 18px;
   text-align: center;
   color: hsl(257, 27%, 26%);
-  margin-top: 60px;
   width: 100%;
 }
 
@@ -47,5 +88,20 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  .burger-icon {
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    right: 15px;
+    top: 25px;
+    cursor: pointer;
+  }
+  .site-logo {
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+}
+.open {
+  display: none;
 }
 </style>

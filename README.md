@@ -18,7 +18,6 @@ npm run serve
 npm run build
 ```
 
-<<<<<<< HEAD
 
 ### Run your tests
 
@@ -26,15 +25,11 @@ npm run build
 npm run test
 ```
 
-=======
-
-> > > > > > > 487ea68278446c11164683a34702f1fee5de568b
-
 ### Lints and fixes files
 
 ```
 npm run lint
-```
+`````
 
 ### Customize configuration
 

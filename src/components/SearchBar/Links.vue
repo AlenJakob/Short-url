@@ -4,7 +4,7 @@
       <div class="regular-btn">
         {{
           link.regularLink.length > 56
-            ? link.regularLink.substr(0, 52) + '...'
+            ? link.regularLink.substr(0, 52) + "..."
             : link.regularLink
         }}
       </div>
@@ -71,10 +71,10 @@ export default defineComponent({
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     background: #fff;
     margin-bottom: 15px;
     padding: 10px 20px;
+    border-radius: 6px;
     color: hsl(180, 66%, 49%);
     @media (max-width: $desktop) {
       flex-direction: column;
@@ -114,8 +114,6 @@ export default defineComponent({
     }
   }
 }
-
-
 
 .isActive {
   background: hsl(257, 27%, 26%) !important;

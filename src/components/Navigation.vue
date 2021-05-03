@@ -18,7 +18,6 @@
 export default {};
 </script>
 
-
 <style scoped lang="scss">
 .links {
   padding: 0;

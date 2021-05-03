@@ -60,8 +60,6 @@ export default defineComponent({
           }
           localStorage.setItem("links", JSON.stringify(links.value));
           isLoading.value = false;
-        } else {
-          console.log("dupa");
         }
       } catch (err) {
         isLoading.value = false;

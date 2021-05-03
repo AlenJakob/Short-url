@@ -126,4 +126,8 @@ body {
     background: #9be3e2;
   }
 }
+.Burger-menu {
+  padding: 1rem;
+  background: #fff;
+}
 </style>

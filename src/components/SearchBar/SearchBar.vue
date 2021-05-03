@@ -98,7 +98,7 @@ export default defineComponent({
   padding: 2.5em;
   position: relative;
   background: url("../../assets/images/bg-shorten-desktop.svg") no-repeat center;
-  fill: red;
+
   background-size: cover;
   color: hsl(257, 27%, 26%);
   // Responsive

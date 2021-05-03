@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import { copyUrl } from "./helpers.js";
+import { copyUrl } from "./helpers.ts";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: { links: Array },
   setup(props) {
     const btnStatus = (id, shorterLink) => {
-      copyUrl();
+      copyUrl(shorterLink);
       let copiedLinks = [...props.links];
       copiedLinks.find((listItem) => {
         listItem.id === id

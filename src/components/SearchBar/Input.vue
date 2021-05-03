@@ -1,6 +1,5 @@
 <template>
   <form class="search" @submit.prevent="shorten(data.input)">
-  
     <div class="search-input">
       <input
         id="search"
@@ -26,7 +25,7 @@
 import { defineComponent, reactive } from "vue";
 export default defineComponent({
   props: { shorten: Function, errHandle: Boolean },
-  setup(props) {
+  setup() {
     const data = reactive({
       input: "",
       errorStyle: { display: "block" },

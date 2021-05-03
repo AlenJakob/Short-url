@@ -55,7 +55,7 @@ export default defineComponent({
         isActive: false,
       },
     ]);
-    const shorten = async (val, err) => {
+    const shorten = async (val) => {
       console.log(errHandle);
       if (val.length > 5) {
         errHandle.value = false;

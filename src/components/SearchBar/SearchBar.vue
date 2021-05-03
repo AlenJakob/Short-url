@@ -10,7 +10,7 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :shorten="shorten" :errHandle="errHandle" />
+        <Input :shorten="shorten" :error="error" />
       </div>
       <Links :links="links" />
     </div>
@@ -21,7 +21,7 @@
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import axios from "axios";
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, onMounted } from "vue";
 import Input from "./Input";
 import Links from "./Links";
 export default defineComponent({
@@ -31,60 +31,43 @@ export default defineComponent({
     Loading,
   },
   setup() {
-    let errHandle = ref(false);
+    const error = ref("");
     const input = ref("");
     const isLoading = ref(false);
-    const links = ref([
-      {
-        id: 1,
-        regularLink:
-          "https://css-tricks.com/full-width-containers-limited-width-parents/",
-        shorterLink: "shorter link 1",
-        isActive: false,
-      },
-      {
-        id: 2,
-        regularLink: "regular link 2",
-        shorterLink: "shorter link 2",
-        isActive: false,
-      },
-      {
-        id: 3,
-        regularLink: "regular link 3",
-        shorterLink: "shorter link 3",
-        isActive: false,
-      },
-    ]);
-    const shorten = async (val, err) => {
-      console.log(errHandle);
-      if (val.length > 5) {
-        errHandle.value = false;
-        try {
-          isLoading.value = true;
-          const shortUrl = await axios.get(
-            `https://api.shrtco.de/v2/shorten?url=${val}`
-          );
-          if (shortUrl.data.ok) {
-            const { code, share_link, original_link } = shortUrl.data.result;
-            links.value.unshift({
-              id: code,
-              regularLink: original_link,
-              shorterLink: share_link,
-              isActive: false,
-            });
-            isLoading.value = false;
+    const links = ref([]);
+
+    onMounted(() => {
+      if (localStorage.getItem("links").length) {
+        links.value = JSON.parse(localStorage.getItem("links"));
+      }
+    });
+    const shorten = async (val) => {
+      try {
+        isLoading.value = true;
+        const shortUrl = await axios.get(
+          `https://api.shrtco.de/v2/shorten?url=${val}`
+        );
+        if (shortUrl.data.ok) {
+          const { code, share_link, original_link } = shortUrl.data.result;
+          links.value.unshift({
+            id: code,
+            regularLink: original_link,
+            shorterLink: share_link,
+            isActive: false,
+          });
+          if (links.value.length > 5) {
+            links.value.pop();
           }
-        } catch (err) {
+          localStorage.setItem("links", JSON.stringify(links.value));
           isLoading.value = false;
         }
-      } else {
-        errHandle.value = true;
-        console.log("the url is to short");
-        return;
+      } catch (err) {
+        isLoading.value = false;
+        error.value = err.response.data.error;
       }
     };
 
-    return { input, links, shorten, axios, isLoading, errHandle };
+    return { input, links, shorten, axios, isLoading, error };
   },
 });
 </script>

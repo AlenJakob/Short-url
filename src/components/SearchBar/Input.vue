@@ -1,6 +1,5 @@
 <template>
   <form class="search" @submit.prevent="shorten(data.input)">
-  
     <div class="search-input">
       <input
         id="search"
@@ -8,13 +7,14 @@
         v-model="data.input"
         type="text"
         placeholder="Shorten a link here..."
+        required
       />
       <label
         class="txt-warning"
-        :style="errHandle ? data.errorStyle : null"
+        :style="error ? data.errorStyle : null"
         for="search"
       >
-        Please add a link
+        {{ error }}
       </label>
     </div>
 
@@ -25,8 +25,8 @@
 <script>
 import { defineComponent, reactive } from "vue";
 export default defineComponent({
-  props: { shorten: Function, errHandle: Boolean },
-  setup(props) {
+  props: { shorten: Function, error: String },
+  setup() {
     const data = reactive({
       input: "",
       errorStyle: { display: "block" },

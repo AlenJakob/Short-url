@@ -6,11 +6,15 @@
       :opacity="0.5"
       color="hsl(257, 27%, 26%)"
       :lock-scroll="true"
+      class="dupa"
     />
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :shorten="shorten" :error="error" />
+        <Input
+          @updateLinks="updateLinks"
+          @update-is-loading="updateIsLoading"
+        />
       </div>
       <Links :links="links" />
     </div>
@@ -20,7 +24,6 @@
 <script>
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import axios from "axios";
 import { ref, defineComponent, onMounted } from "vue";
 import Input from "./Input";
 import Links from "./Links";
@@ -31,43 +34,34 @@ export default defineComponent({
     Loading,
   },
   setup() {
-    const error = ref("");
-    const input = ref("");
-    const isLoading = ref(false);
     const links = ref([]);
+    const isLoading = ref(false);
 
     onMounted(() => {
       if (localStorage.getItem("links").length) {
         links.value = JSON.parse(localStorage.getItem("links"));
       }
     });
-    const shorten = async (val) => {
-      try {
-        isLoading.value = true;
-        const shortUrl = await axios.get(
-          `https://api.shrtco.de/v2/shorten?url=${val}`
-        );
-        if (shortUrl.data.ok) {
-          const { code, share_link, original_link } = shortUrl.data.result;
-          links.value.unshift({
-            id: code,
-            regularLink: original_link,
-            shorterLink: share_link,
-            isActive: false,
-          });
-          if (links.value.length > 5) {
-            links.value.pop();
-          }
-          localStorage.setItem("links", JSON.stringify(links.value));
-          isLoading.value = false;
-        }
-      } catch (err) {
-        isLoading.value = false;
-        error.value = err.response.data.error;
+
+    const updateIsLoading = (value) => {
+      isLoading.value = value;
+      console.log(isLoading.value);
+    };
+    const updateLinks = async (response) => {
+      const { code, share_link, original_link } = response.data.result;
+      links.value.unshift({
+        id: code,
+        regularLink: original_link,
+        shorterLink: share_link,
+        isActive: false,
+      });
+      if (links.value.length > 5) {
+        links.value.pop();
       }
+      localStorage.setItem("links", JSON.stringify(links.value));
     };
 
-    return { input, links, shorten, axios, isLoading, error };
+    return { links, updateLinks, updateIsLoading, isLoading };
   },
 });
 </script>

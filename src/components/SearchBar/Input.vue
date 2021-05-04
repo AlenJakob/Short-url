@@ -1,17 +1,17 @@
 <template>
-  <form class="search" @submit.prevent="shorten(data.input)">
+  <form class="search" @submit.prevent="handleSubmit(input)">
     <div class="search-input">
       <input
         id="search"
         class="input"
-        v-model="data.input"
+        v-model="input"
         type="text"
         placeholder="Shorten a link here..."
         required
       />
       <label
         class="txt-warning"
-        :style="error ? data.errorStyle : null"
+        :style="error ? 'display: block' : null"
         for="search"
       >
         {{ error }}
@@ -23,21 +23,43 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from "vue";
+import axios from "axios";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
-  props: { shorten: Function, error: String },
-  setup() {
-    const data = reactive({
-      input: "",
-      errorStyle: { display: "block" },
-    });
+  emits: ["update-is-loading", "updateLinks"],
+  setup(_props, context) {
+    const input = ref("");
+    const error = ref("");
 
-    return { data };
+    const handleSubmit = async (val) => {
+      error.value = "";
+      try {
+        context.emit("update-is-loading", true);
+        const shortUrl = await axios.get(
+          `https://api.shrtco.de/v2/shorten?url=${val}`
+        );
+        if (shortUrl.data.ok) {
+          context.emit("updateLinks", shortUrl);
+          context.emit("update-is-loading", false);
+          input.value = "";
+        }
+      } catch (err) {
+        context.emit("update-is-loading", false);
+        error.value = err.response.data.error;
+      }
+    };
+
+    return { input, handleSubmit, error };
   },
 });
 </script>
 b
 <style scoped lang="scss">
+.dupa {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+}
 .input {
   width: 97%;
   cursor: pointer;

@@ -23,37 +23,30 @@
 </template>
 
 <script>
-import axios from "axios";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
+import { useShortenUrl } from "../../composables/useShortenUrl";
 export default defineComponent({
   emits: ["update-is-loading", "updateLinks"],
   setup(_props, context) {
     const input = ref("");
-    const error = ref("");
+    const { error, isLoading, getShorten, data } = useShortenUrl();
 
     const handleSubmit = async (val) => {
-      error.value = "";
-      try {
-        context.emit("update-is-loading", true);
-        const shortUrl = await axios.get(
-          `https://api.shrtco.de/v2/shorten?url=${val}`
-        );
-        if (shortUrl.data.ok) {
-          context.emit("updateLinks", shortUrl);
-          context.emit("update-is-loading", false);
-          input.value = "";
-        }
-      } catch (err) {
-        context.emit("update-is-loading", false);
-        error.value = err.response.data.error;
+      await getShorten(val);
+      if (data.value) {
+        context.emit("updateLinks", data.value);
       }
     };
 
-    return { input, handleSubmit, error };
+    watch(isLoading, () => {
+      context.emit("update-is-loading", isLoading.value);
+    });
+
+    return { input, handleSubmit, error, isLoading };
   },
 });
 </script>
-b
+
 <style scoped lang="scss">
 .dupa {
   width: 100vw;

@@ -6,7 +6,6 @@
       :opacity="0.5"
       color="hsl(257, 27%, 26%)"
       :lock-scroll="true"
-      class="dupa"
     />
     <div class="search-bg"></div>
     <div class="main-bar">
@@ -38,17 +37,18 @@ export default defineComponent({
     const isLoading = ref(false);
 
     onMounted(() => {
-      if (localStorage.getItem("links").length) {
+      if (localStorage.getItem("links")) {
         links.value = JSON.parse(localStorage.getItem("links"));
       }
     });
 
     const updateIsLoading = (value) => {
       isLoading.value = value;
-      console.log(isLoading.value);
     };
+
     const updateLinks = async (response) => {
-      const { code, share_link, original_link } = response.data.result;
+      console.log(response.value);
+      const { code, share_link, original_link } = response;
       links.value.unshift({
         id: code,
         regularLink: original_link,

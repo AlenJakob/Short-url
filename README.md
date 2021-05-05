@@ -1,5 +1,6 @@
-# short-url-vue-3
+# Short URL Api - Group Project
 
+## UI & Starter Pack delivered by Front End Mentor
 ## Project setup
 
 ```
@@ -11,26 +12,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-
-### Run your tests
-
-```
-npm run test
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-`````
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).

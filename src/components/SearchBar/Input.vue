@@ -22,7 +22,7 @@
   </form>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, watch } from "vue";
 import { useShortenUrl } from "../../composables/useShortenUrl";
 export default defineComponent({
@@ -31,7 +31,7 @@ export default defineComponent({
     const input = ref("");
     const { error, isLoading, getShorten, data } = useShortenUrl();
 
-    const handleSubmit = async (val) => {
+    const handleSubmit = async (val: string) => {
       await getShorten(val);
       if (data.value) {
         context.emit("updateLinks", data.value);

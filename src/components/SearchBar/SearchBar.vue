@@ -15,17 +15,18 @@
           @update-is-loading="updateIsLoading"
         />
       </div>
-      <Links :links="links" />
+      <Links v-if="links.length" :links="links" />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { ref, defineComponent, onMounted } from "vue";
-import Input from "./Input";
-import Links from "./Links";
+import Input from "./Input.vue";
+import Links from "./Links.vue";
+import { LinkType } from "../../types/Link";
 export default defineComponent({
   components: {
     Input,
@@ -33,21 +34,24 @@ export default defineComponent({
     Loading,
   },
   setup() {
-    const links = ref([]);
+    const links = ref<LinkType[]>([]);
     const isLoading = ref(false);
 
     onMounted(() => {
       if (localStorage.getItem("links")) {
-        links.value = JSON.parse(localStorage.getItem("links"));
+        links.value = JSON.parse(localStorage.getItem("links") || "[]");
       }
     });
 
-    const updateIsLoading = (value) => {
+    const updateIsLoading = (value: boolean) => {
       isLoading.value = value;
     };
 
-    const updateLinks = async (response) => {
-      console.log(response.value);
+    const updateLinks = async (response: {
+      code: string;
+      share_link: string;
+      original_link: string;
+    }) => {
       const { code, share_link, original_link } = response;
       links.value.unshift({
         id: code,

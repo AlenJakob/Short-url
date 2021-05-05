@@ -22,13 +22,16 @@
   </div>
 </template>
 
-<script>
-import { copyUrl } from "./helpers.ts";
-import { defineComponent } from "vue";
+<script lang="ts">
+import { copyUrl } from "./helpers";
+import { defineComponent, PropType } from "vue";
+import { LinkType } from "../../types/Link";
 export default defineComponent({
-  props: { links: Array },
+  props: {
+    links: { type: Array as PropType<LinkType[] | []>, required: true },
+  },
   setup(props) {
-    const btnStatus = (id, shorterLink) => {
+    const btnStatus = (id: string, shorterLink: string) => {
       copyUrl(shorterLink);
       let copiedLinks = [...props.links];
       copiedLinks.find((listItem) => {

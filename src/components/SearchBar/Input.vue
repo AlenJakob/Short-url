@@ -35,6 +35,7 @@ export default defineComponent({
       await getShorten(val);
       if (data.value) {
         context.emit("updateLinks", data.value);
+        input.value = "";
       }
     };
 

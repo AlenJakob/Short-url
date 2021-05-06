@@ -42,31 +42,71 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.burger-icon{
-  height: 48px;
-  width: 48px;
-  position: absolute;
-  right: 15px;
-  top: 25px;
-  cursor: pointer ;
-}
-.site-logo{
-  margin-top: 15px;
-  margin-left: 15px;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+
+body {
+  margin: 0;
 }
 #app {
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;900&display=swap');
-  font-family: Poppins, sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  color: hsl(0, 0%, 75%);
+  width: 100%;
+  background: #ffff;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 20px;
-  text-align: left;
+  font-size: 18px;
+  text-align: center;
+  color: hsl(257, 27%, 26%);
+  width: 100%;
 }
-.open{
-      display: none;
+
+.main {
+  display: block;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  .burger-icon {
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    cursor: pointer;
   }
+  .site-logo {
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+}
+@media only screen and (max-width: 920px) {
+  .site-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+}
+.open {
+  display: none;
+}
+.btn {
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 0 8px;
+  background: hsl(180, 66%, 49%);
+  color: #fff;
+  border: none;
+  &:hover {
+    background: #9be3e2;
+  }
+}
 </style>
+
+
+
+
+

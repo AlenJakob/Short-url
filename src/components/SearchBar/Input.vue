@@ -1,17 +1,17 @@
 <template>
-  <form class="search" @submit.prevent="shorten(data.input)">
+  <form class="search" @submit.prevent="handleSubmit(input)">
     <div class="search-input">
       <input
         id="search"
         class="input"
-        v-model="data.input"
+        v-model="input"
         type="text"
         placeholder="Shorten a link here..."
         required
       />
       <label
         class="txt-warning"
-        :style="error ? data.errorStyle : null"
+        :style="error ? 'display: block' : null"
         for="search"
       >
         {{ error }}
@@ -22,22 +22,38 @@
   </form>
 </template>
 
-<script>
-import { defineComponent, reactive } from "vue";
+<script lang="ts">
+import { defineComponent, ref, watch } from "vue";
+import { useShortenUrl } from "../../composables/useShortenUrl";
 export default defineComponent({
-  props: { shorten: Function, error: String },
-  setup() {
-    const data = reactive({
-      input: "",
-      errorStyle: { display: "block" },
+  emits: ["update-is-loading", "updateLinks"],
+  setup(_props, context) {
+    const input = ref("");
+    const { error, isLoading, getShorten, data } = useShortenUrl();
+
+    const handleSubmit = async (val: string) => {
+      await getShorten(val);
+      if (data.value) {
+        context.emit("updateLinks", data.value);
+        input.value = "";
+      }
+    };
+
+    watch(isLoading, () => {
+      context.emit("update-is-loading", isLoading.value);
     });
 
-    return { data };
+    return { input, handleSubmit, error, isLoading };
   },
 });
 </script>
-b
+
 <style scoped lang="scss">
+.dupa {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+}
 .input {
   width: 97%;
   cursor: pointer;

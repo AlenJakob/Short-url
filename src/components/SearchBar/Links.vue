@@ -1,34 +1,24 @@
 <template>
   <div class="links">
     <div class="link" v-for="link in links" :key="link.id">
-      <div class="regular-btn">
-        {{
-          link.regularLink.length > 56
-            ? link.regularLink.substr(0, 52) + "..."
-            : link.regularLink
-        }}
-      </div>
-      <div class="action">
-        <div class="shorter">{{ link.shorterLink }}</div>
-        <button
-          @click="btnStatus(link.id, link.shorterLink)"
-          class="btn btn-copy"
-          :class="link.isActive ? 'isActive' : ''"
-        >
-          {{ link.isActive ? "Copied !" : "Copy" }}
-        </button>
-      </div>
+      <Link :link="link" @change-button-status="btnStatus" />
     </div>
   </div>
 </template>
 
-<script>
-import { copyUrl } from "./helpers.ts";
-import { defineComponent } from "vue";
+<script lang="ts">
+import { copyUrl } from "./helpers";
+import { defineComponent, PropType } from "vue";
+import Link from "./Link.vue";
+import { LinkType } from "../../types/Link";
 export default defineComponent({
-  props: { links: Array },
+  props: {
+    links: { type: Array as PropType<LinkType[] | []>, required: true },
+  },
+  components: { Link },
   setup(props) {
-    const btnStatus = (id, shorterLink) => {
+    const btnStatus = (id: string, shorterLink: string) => {
+      console.log(id, shorterLink);
       copyUrl(shorterLink);
       let copiedLinks = [...props.links];
       copiedLinks.find((listItem) => {
@@ -38,7 +28,7 @@ export default defineComponent({
       });
     };
 
-    return { btnStatus };
+    return { btnStatus, Link };
   },
 });
 </script>
@@ -49,74 +39,23 @@ export default defineComponent({
   font-size: 18px;
   display: flex;
   flex-direction: column;
-  & .action {
-    display: flex;
-    align-items: center;
-    @media (max-width: $desktop) {
-      flex-direction: column;
-      align-items: stretch;
-      text-align: left;
-    }
-    & .shorter {
-      margin-right: 10px;
-    }
-    & .btn-copy {
-      padding: 10px 20px;
-    }
-  }
-
-  .link {
-    overflow: hidden;
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    margin-bottom: 15px;
-    padding: 10px 20px;
-    border-radius: 6px;
-    color: hsl(180, 66%, 49%);
-    @media (max-width: $desktop) {
-      flex-direction: column;
-      align-items: stretch;
-      & .btn,
-      .input {
-        margin: 12px 0;
-      }
-      & .btn-copy {
-        padding: 15px 20px;
-      }
-      & .regular-btn {
-        margin: 12px 0;
-        padding-bottom: 15px;
-        position: relative;
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: -20px;
-          width: calc(100% + 80px);
-          height: 1px;
-          background: #eff0f5;
-        }
-      }
-    }
-
-    & .btn {
-      font-weight: bold;
-    }
-    & .regular-btn {
-      margin-right: 40px;
-      white-space: nowrap;
-      max-width: 300px;
-      text-align: left;
-      color: hsl(257, 27%, 26%) !important;
-    }
-  }
 }
 
-.isActive {
-  background: hsl(257, 27%, 26%) !important;
+.link {
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 15px;
+  padding: 0 20px;
+  border-radius: 6px;
+  color: hsl(180, 66%, 49%);
+  @media (max-width: $desktop) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 </style>

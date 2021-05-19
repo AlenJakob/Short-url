@@ -10,20 +10,23 @@
     <div class="search-bg"></div>
     <div class="main-bar">
       <div class="search-bar">
-        <Input :shorten="shorten" :error="error" />
+        <Input
+          @updateLinks="updateLinks"
+          @update-is-loading="updateIsLoading"
+        />
       </div>
-      <Links :links="links" />
+      <Links v-if="links.length" :links="links" />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import axios from "axios";
 import { ref, defineComponent, onMounted } from "vue";
-import Input from "./Input";
-import Links from "./Links";
+import Input from "./Input.vue";
+import Links from "./Links.vue";
+import { LinkType } from "../../types/Link";
 export default defineComponent({
   components: {
     Input,
@@ -31,43 +34,38 @@ export default defineComponent({
     Loading,
   },
   setup() {
-    const error = ref("");
-    const input = ref("");
+    const links = ref<LinkType[]>([]);
     const isLoading = ref(false);
-    const links = ref([]);
 
     onMounted(() => {
-      if (localStorage.getItem("links").length) {
-        links.value = JSON.parse(localStorage.getItem("links"));
+      if (localStorage.getItem("links")) {
+        links.value = JSON.parse(localStorage.getItem("links") || "[]");
       }
     });
-    const shorten = async (val) => {
-      try {
-        isLoading.value = true;
-        const shortUrl = await axios.get(
-          `https://api.shrtco.de/v2/shorten?url=${val}`
-        );
-        if (shortUrl.data.ok) {
-          const { code, share_link, original_link } = shortUrl.data.result;
-          links.value.unshift({
-            id: code,
-            regularLink: original_link,
-            shorterLink: share_link,
-            isActive: false,
-          });
-          if (links.value.length > 5) {
-            links.value.pop();
-          }
-          localStorage.setItem("links", JSON.stringify(links.value));
-          isLoading.value = false;
-        }
-      } catch (err) {
-        isLoading.value = false;
-        error.value = err.response.data.error;
-      }
+
+    const updateIsLoading = (value: boolean) => {
+      isLoading.value = value;
     };
 
-    return { input, links, shorten, axios, isLoading, error };
+    const updateLinks = async (response: {
+      code: string;
+      share_link: string;
+      original_link: string;
+    }) => {
+      const { code, share_link, original_link } = response;
+      links.value.unshift({
+        id: code,
+        regularLink: original_link,
+        shorterLink: share_link,
+        isActive: false,
+      });
+      if (links.value.length > 5) {
+        links.value.pop();
+      }
+      localStorage.setItem("links", JSON.stringify(links.value));
+    };
+
+    return { links, updateLinks, updateIsLoading, isLoading };
   },
 });
 </script>
